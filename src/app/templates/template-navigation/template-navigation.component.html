@@ -1,0 +1,7 @@
+<select (change)="chooseTemplate(selected)" [(ngModel)]="selected" name="" id="">
+	<option *ngFor="let template of templates" value="{{template.id}}">{{template.name}}</option>
+</select>
+
+{{ selected }}
+
+huh

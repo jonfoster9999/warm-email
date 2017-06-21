@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { TemplatesService } from './services/templates.service';
-import { Template } from './models/template.model';
+import { TemplatesService } from '../../services/templates.service';
+import { Template } from '../../models/template.model';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-template-navigation',
+  templateUrl: './template-navigation.component.html',
+  styleUrls: ['./template-navigation.component.css']
 })
-export class AppComponent implements OnInit {
+export class TemplateNavigationComponent implements OnInit {
   title = 'app';
+
+
 
   templates = []
 
@@ -32,8 +34,8 @@ export class AppComponent implements OnInit {
   		})
   }
 
-  doSomething() {
-    alert("hello")
+  chooseTemplate(index) {
+    this.templatesService.emitTemplateIndex.emit(index);
   }
 
 
