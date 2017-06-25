@@ -1,3 +1,7 @@
 <p>
-  template-details works!
-</p>
+  <h4>{{ template?.name }}</h4>
+ <p>{{ template?.body }}</p>
+ 
+<a [routerLink]="['edit']">Edit</a><br>
+<a [routerLink]="['email']">E-mail this template</a>
+

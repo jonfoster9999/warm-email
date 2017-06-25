@@ -1,0 +1,71 @@
+<!-- <div class="row">
+	<div class="col-sm-4">	
+		<p>
+		  {{ template?.name }}
+		</p>
+		<form class="form-group" (ngSubmit)="onSubmit(f)" #f="ngForm">
+			<fieldset *ngFor="let input of template.properties">
+			<label for="input.name">{{input.name}}</label>
+			<input class="form-control" type="text" name="{{input.name}}" ngModel>
+			</fieldset><br>
+			<button class="form-control btn btn-primary" type="submit">Change</button>
+		</form>
+	</div>
+		<div class="container col-sm-6" [innerHTML]="bodyHtml"></div>
+</div>
+<hr> -->
+
+
+
+
+<!-- <app-email-main *ngFor="let email of emails"></app-email-main>
+<hr>
+<p class="add-email" (click)="addEmail()">Add Another Email +</p> -->
+
+
+
+
+
+
+<form>
+    <div [formGroup]="myForm">
+	<div formArrayName="hobbies">
+
+	<div class="form-group"
+		*ngFor="let hobbyControl of myForm.get('hobbies').controls; let i = index" [formGroupName]="i">
+	<hr>
+	<div class="row">
+	<div class="col-sm-4">	
+		<h3>
+		  {{ template?.name }}
+		</h3>
+		<div class="form-group">
+		<div *ngFor="let input of template.properties; let i = index">
+			<label for="input.name">{{input.name}}</label>
+			<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
+			
+		</div>
+<br>
+			
+		<button class="form-control btn btn-primary" type="button" (click)="otherWay(i)">Change</button>
+		</div>
+	</div>
+	<br>
+		<div class="container col-sm-6" id="body-{{i}}" [innerHTML]="bodyHtml"></div>
+</div>
+
+
+
+
+
+
+	</div>
+			<button type="button" class="btn btn-primary" (click)="onAddHobby()">Add Email</button>
+
+			<button (click)="onSubmit()" type="button" class=" btn btn-success">Save</button>
+	</div>
+	</div>
+	
+</form>
+
+

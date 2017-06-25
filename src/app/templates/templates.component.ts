@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Http } from '@angular/http';
 import { TemplatesService } from '../services/templates.service';
 import { Template } from '../models/template.model';
@@ -12,14 +12,13 @@ export class TemplatesComponent implements OnInit {
   title = 'app';
 
 
-  constructor(private http: Http, private templatesService: TemplatesService) {
 
+  constructor(private http: Http, private templatesService: TemplatesService) {
+  	
   }
 
 
   ngOnInit() {
-
-
   }
 
 

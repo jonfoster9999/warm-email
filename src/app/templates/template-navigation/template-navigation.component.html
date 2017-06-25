@@ -1,7 +1,14 @@
-<select (change)="chooseTemplate(selected)" [(ngModel)]="selected" name="" id="">
-	<option *ngFor="let template of templates" value="{{template.id}}">{{template.name}}</option>
-</select>
+<div class="navigation">
+	<div *ngIf="!newFlag; else other">
+		<button class="btn btn-success"  (click)="onNewTemplate()">New Template</button><br>
+<!-- 		My Templates: <select (change)="chooseTemplate(selected)" [(ngModel)]="selected" name="" id="">
+			<option *ngFor="let template of templates" value="{{template.id}}">{{template.name}}</option>
+		</select> -->
 
-{{ selected }}
-
-huh
+	</div>
+	 <ng-template #other>
+	 	<div>
+	 		<button class="btn btn-success" (click)="onBackToTemplates()">Back To Templates</button>
+	 	</div>
+	 </ng-template>
+</div>

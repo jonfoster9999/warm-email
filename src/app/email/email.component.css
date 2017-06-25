@@ -1,0 +1,12 @@
+form {
+	font-size: .7em;
+
+}
+
+input {
+	height: 2em;
+}
+
+.add-email:hover {
+	cursor: pointer;
+}
