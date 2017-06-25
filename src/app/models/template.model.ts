@@ -4,6 +4,7 @@ export class Template {
 	public body: string;
 	public properties: string[];
 	public user_id: number; 
+	public id: number;
 
 	constructor(name, body, properties=[], user_id=null) {
 		this.name = name;
