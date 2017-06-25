@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
   	this.http.get("http://localhost:3000/templates")
   		.subscribe((data) => {
-  			console.log(JSON.parse(data["_body"]))
         var templates = JSON.parse(data["_body"]);
         this.templates = templates;
   			// this.templatesService.importTemplates(JSON.parse(data["_body"]));
@@ -31,10 +30,4 @@ export class AppComponent implements OnInit {
 
   		})
   }
-
-  doSomething() {
-    alert("hello")
-  }
-
-
 }
