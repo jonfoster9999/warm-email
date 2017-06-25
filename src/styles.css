@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.color-me {
+	color: black;
+	background: powderblue;
+	padding: 3px;
+	border-radius: 2px;
+
+}
+
+html, body {
+	height: 100%;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: black;
+}
