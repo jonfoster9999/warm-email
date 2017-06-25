@@ -1,3 +1,14 @@
 h2 {
 	text-align: center;
 }
+.main {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+html, body {
+	height: 100%;
+}
