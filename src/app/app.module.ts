@@ -20,6 +20,11 @@ import { TemplateResolve } from './resolvers/template.resolver';
 import { EmailMainComponent } from './email/email-main/email-main.component';
 import { EmailAddComponent } from './email/email-add/email-add.component';
 import { EmailMain2Component } from './email/email-main-2/email-main-2.component';
+import { TemplateHomeComponent } from './templates/template-home/template-home.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { UsersService } from './services/users.service';
+import { CanActivateViaUserService } from './guards/guard'
 
 
 @NgModule({
@@ -35,7 +40,10 @@ import { EmailMain2Component } from './email/email-main-2/email-main-2.component
     TemplateEditComponent,
     EmailMainComponent,
     EmailAddComponent,
-    EmailMain2Component
+    EmailMain2Component,
+    TemplateHomeComponent,
+    HomeComponent,      
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +53,12 @@ import { EmailMain2Component } from './email/email-main-2/email-main-2.component
     AppRoutes,
     ReactiveFormsModule
   ],
-  providers: [TemplatesService, TemplateResolve],
+  providers: [
+          TemplatesService, 
+          TemplateResolve, 
+          UsersService,
+          CanActivateViaUserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
