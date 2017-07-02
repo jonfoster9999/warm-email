@@ -26,7 +26,8 @@ export class EmailMainComponent implements OnInit {
         var obj = JSON.parse(data["_body"]);
         var template = this.templatesService.buildTemplate(obj)
         this.template = template;
-        this.bodyHtml = this.template["body"]
+        this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
+
       })
 
       })
@@ -36,7 +37,7 @@ export class EmailMainComponent implements OnInit {
   	var formData = form["form"]["_value"]
   	console.log(this.template.body, "first argument")
   	console.log(this.template.properties, "second argument")
-  	console.log(formData)
+  	console.log(formData, "third argument")
   	var html = this.templatesService.convertTemplate(this.template.body, this.template.properties, formData);
   	this.bodyHtml = html;
   }
