@@ -6,15 +6,25 @@
 				class="sun"
 				alt="">
 			<a style="margin-left: 15px;" href="" class="navbar-brand">
-				Warm Emails
+				Warm Connection
 			</a>
 		</div>
 
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a routerLink="templates">Manage Templates</a></li>
-				<li><a routerLink="emails">Create E-mails</a></li>
+				<li *ngIf="loggedIn"><a routerLink="templates">Manage Templates</a></li>
+				<li *ngIf="!loggedIn"><a routerLink="login">Login/Register</a></li>
+				<li><a routerLink="emails">View Demo</a></li>
+				<li><a routerLink="emails">About</a></li>
+							
 			</ul>
+
+			<ul class="nav navbar-nav pull-right" *ngIf="loggedIn">
+				<li class="pull-right" ><a class="logged-in-name">
+			Signed in as <span class="username">{{ currentUser.username }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+			</li>
+			</ul>
+
 		</div>
 	</div>
 </nav>
