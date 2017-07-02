@@ -19,3 +19,15 @@ h2 {
 .navbar-default a {
 	color: white;
 }
+
+ul.nav.navbar-nav.pull-right a:hover {
+	color: white;
+}
+
+ul.nav.navbar-nav.pull-right a.logout:hover {
+	cursor: pointer;
+}
+
+.username {
+	color: rgb(92, 184, 92);
+}
