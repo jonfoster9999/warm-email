@@ -97,12 +97,15 @@ li:hover {
 }
 
 
-
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
 
 
 ul {
 	max-height: 160px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 h3 {

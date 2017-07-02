@@ -1,0 +1,105 @@
+<br>
+<br>
+<br>
+<h3>Welcome to Warm Connection!</h3>
+<br>
+<div class="container">
+        <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" class="active" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" id="register-form-link">Register</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form id="login-form" style="display: block;"
+								[formGroup]="loginForm" (ngSubmit)="onLogin()">
+									<div class="form-group">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""
+										formControlName="username">
+										<span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Username required</span>
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"
+										formControlName="password" >
+										<span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Password required</span>
+									</div>
+<!-- 									<div class="form-group text-center">
+										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+										<label for="remember"> Remember Me</label>
+									</div> -->
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" 
+												[disabled]="!loginForm.valid">
+											</div>
+										</div>
+									</div>
+<!-- 									<div class="form-group">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="text-center">
+													<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+												</div>
+											</div>
+										</div>
+									</div> -->
+								</form>
+
+								<!--registration -->
+								<form id="register-form" style="display: none;"
+									[formGroup]="registrationForm"
+									(ngSubmit)="onRegister()">
+									<div class="form-group">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""
+										formControlName="username">
+										<span *ngIf="!registrationForm.get('username').valid
+										&& registrationForm.get('username').touched">
+										Username Required</span>
+									</div>
+									<div class="form-group">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=""
+										formControlName="email">
+										<span *ngIf="!registrationForm.get('email').valid
+										&& registrationForm.get('email').touched">
+										Email Required</span>
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"
+										formControlName="password1">
+										<span *ngIf="!registrationForm.get('password1').valid
+										&& registrationForm.get('password1').touched">
+										Password Required</span>
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password"
+										formControlName="password2">
+										<span *ngIf="!registrationForm.get('password2').valid 
+										&& registrationForm.get('password2').touched">Passwords Do Not Match</span>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" 
+												[disabled]="!registrationForm.valid">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

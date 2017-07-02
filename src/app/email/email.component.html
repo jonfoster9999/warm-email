@@ -28,44 +28,38 @@
 
 
 <form>
-    <div [formGroup]="myForm">
-	<div formArrayName="hobbies">
+	<div [formGroup]="myForm">
+	<div formArrayName="emails">
+			<div class="form-group"
+			*ngFor="let emailControl of myForm.get('emails').controls; let i = index" [formGroupName]="i">
+			<hr>
+			<div class="row">
+				<div class="col-sm-4">	
+					<h3>
+						{{ template?.name }}
+					</h3>
+					<div class="form-group">
+						<div *ngFor="let input of template.properties; let i = index">
+							<label for="input.name">{{input.name}}</label>
+							<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
 
-	<div class="form-group"
-		*ngFor="let hobbyControl of myForm.get('hobbies').controls; let i = index" [formGroupName]="i">
-	<hr>
-	<div class="row">
-	<div class="col-sm-4">	
-		<h3>
-		  {{ template?.name }}
-		</h3>
-		<div class="form-group">
-		<div *ngFor="let input of template.properties; let i = index">
-			<label for="input.name">{{input.name}}</label>
-			<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
-			
+						</div>
+						<br>
+
+						<button class="form-control btn btn-primary" type="button" (click)="otherWay(i)">Inject Values</button>
+					</div>
+				</div>
+				<br>
+				<div class="container col-sm-6" id="body-{{i}}" [innerHTML]="bodyHtml"></div>
+			</div>
 		</div>
-<br>
-			
-		<button class="form-control btn btn-primary" type="button" (click)="otherWay(i)">Change</button>
-		</div>
+		<hr>
+		<button type="button" class="btn btn-primary" (click)="onAddEmail()">Add Email</button>
+		<button (click)="onSubmit()" type="button" class=" btn btn-success">Save</button>
 	</div>
-	<br>
-		<div class="container col-sm-6" id="body-{{i}}" [innerHTML]="bodyHtml"></div>
 </div>
 
-
-
-
-
-
-	</div>
-			<button type="button" class="btn btn-primary" (click)="onAddHobby()">Add Email</button>
-
-			<button (click)="onSubmit()" type="button" class=" btn btn-success">Save</button>
-	</div>
-	</div>
-	
 </form>
+
 
 

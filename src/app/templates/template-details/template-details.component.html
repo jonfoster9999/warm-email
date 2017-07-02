@@ -1,7 +1,12 @@
+<br>
 <p>
   <h4>{{ template?.name }}</h4>
- <p>{{ template?.body }}</p>
- 
-<a [routerLink]="['edit']">Edit</a><br>
-<a [routerLink]="['email']">E-mail this template</a>
+ <p [innerHTML]="body"></p>
+<hr>
+
+<a [routerLink]="['email']"><button type="button" class="btn btn-success">Build Emails</button></a>
+<a [routerLink]="['edit']"><button type="button" class="btn btn-primary">Edit Template</button></a>
+<button type="button" (click)="deleteTemplate()" class="btn btn-danger">Delete Template</button>
+
+
 

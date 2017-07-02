@@ -2,45 +2,42 @@
 <br>
 <br>
 <div class="form-border">
-<form (ngSubmit)="onSubmit(f)" #f="ngForm">
-	<div class="form-group">
-		<label for="name">Template Name</label>
-		<input type="text" 
-		       name="name" 
-		       class="form-control" 
-		       ngModel 
-		       required>
-	</div><br>
-	<div class="row">
-		<div class="col-xs-3">
-			<div class="form-group">
-				<label for="variables">Variables</label>
-				<div class="">
-					<ul id="list" class="list-group">
-						<li class="variable-list list-group-item" *ngFor="let item of defaultVariables; let i = index" (click)="addVariable(item)" >
-							
-
-							{{ item.name }} 
-							<span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeItem($event, i)">
-								
-							</span>
-						</li>
-					</ul>
-					<span (click)="newVariable()" class="new-variable indent">Add Variable +</span>
+	<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+		<div class="form-group">
+			<label for="name">Template Name</label>
+			<input type="text" 
+			       name="name" 
+			       class="form-control" 
+			       ngModel 
+			       required>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="form-group">
+					<label for="variables">Variables</label>
+					<div class="">
+						<ul id="list" class="list-group">
+							<li class="variable-list list-group-item" *ngFor="let item of defaultVariables; let i = index" (click)="addVariable(item)" >
+								{{ item.name }} 
+								<span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeItem($event, i)">	
+								</span>
+							</li>
+						</ul>
+						<span (click)="newVariable()" class="new-variable indent">Add Variable +</span>
+					</div>
 				</div>
 			</div>
+			<div class="col-xs-9 pull-right form-group">
+				<label for="body">Template Body</label>
+				<textarea id="body_text_area" 
+				          class="form-control" 
+				          name="body" 
+				          [(ngModel)]="body"
+				          required>        
+				</textarea>
+			</div>
 		</div>
-		<div class="col-xs-9 pull-right form-group">
-			<label for="body">Template Body</label>
-			<textarea id="body_text_area" 
-			          class="form-control" 
-			          name="body" 
-			          [(ngModel)]="body"
-			          required>
-			</textarea>
-		</div>
-	</div>
-	<button [disabled]="!f.valid" class="form-control btn btn-primary my-button">Submit Template</button>
-
-</form>
+		<button [disabled]="!f.valid" class="form-control btn btn-primary my-button">Submit Template</button>
+	</form>
 </div>

@@ -1,9 +1,10 @@
 
-import { Component, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding, AfterViewInit, ViewChild } from '@angular/core';
 import { TemplatesService } from '../../services/templates.service';
 import { Headers, RequestOptions, Http } from '@angular/http';
 import { Property } from '../../models/property.model'
 import { Router } from '@angular/router';
+import { UsersService } from '../../services/users.service';
 import 'rxjs/add/operator/toPromise';
 declare var $:any;
 
@@ -14,17 +15,27 @@ declare var $:any;
 })
 export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(private templatesService: TemplatesService, private http: Http, private router: Router) { }
-  defaultVariables = [new Property("contact_name"), 
-                      new Property("contact_company"), 
-                      new Property("custom_paragraph_1"), 
-                      new Property("custom_paragraph_2")
+  currentUser;
+
+  constructor(private templatesService: TemplatesService, private http: Http, private router: Router, private usersService: UsersService) { }
+  defaultVariables = [new Property("email"), 
+                      new Property("subject"), 
+                      new Property("contact_name"), 
+                      new Property("contact_company")
                       ]
 
-  body = "";
-  ngOnInit() {
+    body = `To: **email** 
+Subject: **subject**
+_________________________
+Message Below
+--------------------------------`;
 
+  @ViewChild('f') myForm;
+
+  ngOnInit() {
+    this.currentUser = this.usersService.currentUser;
   	this.templatesService.newFlagEmitter.emit(true);
+    
   }
 
   ngOnDestroy() {
@@ -49,7 +60,6 @@ export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
     var firstString = this.body.substring(0, startPos),
         secondString = "**" + element.name + "**",
         thirdString = this.body.substring(startPos);
-
     this.body = firstString + secondString + thirdString;
     ctl.focus();
     ctl.select();
@@ -67,7 +77,6 @@ export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
 
   removeItem(event, index) {
     event.stopPropagation();
-    console.log(index)
     this.defaultVariables.splice(index, 1);
   }
 
@@ -76,15 +85,11 @@ export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
     obj["properties"] = this.defaultVariables;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this.http.post("http://localhost:3000/templates", JSON.stringify(obj), options)
+    this.http.post("http://localhost:3000/users/" + this.currentUser['id'] + "/templates", JSON.stringify(obj), options)
       .subscribe((data) => {
-
         this.templatesService.updateTemplateEmitter.emit();
         this.router.navigate(['/templates'])
-      })
-
-          
-
+      })        
   }
 
   ngAfterViewInit() {

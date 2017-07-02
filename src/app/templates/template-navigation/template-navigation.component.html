@@ -1,10 +1,21 @@
 <div class="navigation">
 	<div *ngIf="!newFlag; else other">
 		<button class="btn btn-success"  (click)="onNewTemplate()">New Template</button><br>
-<!-- 		My Templates: <select (change)="chooseTemplate(selected)" [(ngModel)]="selected" name="" id="">
-			<option *ngFor="let template of templates" value="{{template.id}}">{{template.name}}</option>
-		</select> -->
+<!-- 		<p style="font-weight:bold; display: margin-left: 4px; text-align: center; margin-bottom: 4px;">My Templates:</p>
 
+		 <select class="selectbox" (change)="chooseTemplate(selected)" [(ngModel)]="selected" name="" id="">
+			<option *ngFor="let template of templates" value="{{template.id}}">{{template.name}}</option>
+		</select>
+		<br>
+		<br> -->
+		
+<!-- 		<p style="font-weight:bold; display: margin-left: 4px; text-align: center; margin-bottom: 4px;">My Templates:</p> -->
+<ul class="list-group">
+	<li *ngFor="let template of templates" 
+		class="list-group-item"
+		(click)="chooseTemplate(template.id)"
+	>{{template.name}}</li>
+</ul>
 	</div>
 	 <ng-template #other>
 	 	<div>
@@ -12,3 +23,4 @@
 	 	</div>
 	 </ng-template>
 </div>
+

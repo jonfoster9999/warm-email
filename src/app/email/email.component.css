@@ -5,8 +5,24 @@ form {
 
 input {
 	height: 2em;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 .add-email:hover {
 	cursor: pointer;
+}
+
+.container {
+	font-size: 1.3em;
+	border-left: 1px solid #ccc;
+}
+
+label {
+	margin-bottom: 0px;
+	margin-top: 3px;
+}
+
+input.form-control {
+    line-height: .9em;
 }

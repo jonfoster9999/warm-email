@@ -10,17 +10,9 @@ import { Template } from '../models/template.model';
 })
 export class TemplatesComponent implements OnInit {
   title = 'app';
-
-
-
   constructor(private http: Http, private templatesService: TemplatesService) {
   	
   }
-
-
   ngOnInit() {
   }
-
-
-
 }

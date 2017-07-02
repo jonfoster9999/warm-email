@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { TemplatesService } from '../../services/templates.service';
 import { Template } from '../../models/template.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '../../models/user.model'
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-template-navigation',
@@ -11,20 +13,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class TemplateNavigationComponent implements OnInit {
   title = 'app';
+  currentUser: User;
 
   newFlag = this.templatesService.newFlag;
 
   templates = []
 
   selected = "1"
+  
   constructor(private http: Http, private templatesService: TemplatesService,
-  			  private router: Router, private route: ActivatedRoute) {
-
-  }
-
+  			  private router: Router, private route: ActivatedRoute,
+          private usersService: UsersService) {}
 
   ngOnInit() {
-  	this.http.get("http://localhost:3000/templates")
+    this.currentUser = this.usersService.currentUser;
+  	this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates")
   		.subscribe((data) => {
         	var templates = JSON.parse(data["_body"]);
         	this.templates = templates;
@@ -35,15 +38,12 @@ export class TemplateNavigationComponent implements OnInit {
   		})
     this.templatesService.updateTemplateEmitter
       .subscribe((data) => {
-        this.http.get("http://localhost:3000/templates")
+        this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates")
           .subscribe((data) => {
               var templates = JSON.parse(data["_body"]);
               this.templates = templates;
+          })
       })
-
-      })
-
-
   }
 
   chooseTemplate(index) {
@@ -58,6 +58,4 @@ export class TemplateNavigationComponent implements OnInit {
   onBackToTemplates() {
   	this.router.navigate(['/templates'])
   }
-
-
 }

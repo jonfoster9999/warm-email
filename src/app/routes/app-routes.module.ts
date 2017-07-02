@@ -6,18 +6,24 @@ import { TemplateNewComponent } from '../templates/template-new/template-new.com
 import { EmailComponent } from '../email/email.component';
 import { TemplateEditComponent } from '../templates/template-edit/template-edit.component';
 import { TemplateResolve } from '../resolvers/template.resolver';
+import { TemplateHomeComponent } from '../templates/template-home/template-home.component';
+import { HomeComponent } from '../home/home.component';
+import { LoginComponent } from '../login/login.component';
+import { CanActivateViaUserService } from '../guards/guard'
 
 
 const appRoutes = [
-	{ path: "", component: TemplatesComponent, pathMatch: "full"},
-	{ path: "templates", component: TemplatesComponent, children: [
+	{ path: "", component: HomeComponent, pathMatch: "full"},
+	{ path: "login", component: LoginComponent},
+	{ path: "templates", component: TemplatesComponent, canActivate: [
+		 CanActivateViaUserService
+		], children: [
+		{ path: "", component: TemplateHomeComponent },
 		{ path: "new", component: TemplateNewComponent},
 		{ path: ":id", component: TemplateDetailsComponent, pathMatch: "full"},
 		{ path: ":id/edit", component: TemplateEditComponent, resolve: {template: TemplateResolve}, pathMatch: "full"},
 		{ path: ":id/email", component: EmailComponent, resolve: {template: TemplateResolve}, pathMatch: "full"}
 	]}
-	// 	,
-	// { path: "emails", component: EmailComponent }
 ]
 
 @NgModule({
@@ -28,4 +34,5 @@ const appRoutes = [
 		RouterModule
 	]
 })
+
 export class AppRoutes {}

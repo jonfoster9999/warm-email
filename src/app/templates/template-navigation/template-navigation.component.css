@@ -1,5 +1,5 @@
 .navigation {
-	background: #999;
+	background: linear-gradient(#999 , white);
 	height: 620px;
 	width: 144px;
 
@@ -8,5 +8,38 @@
 .btn {
 	width: 144px;
 	border-radius: 0px;
+}
+
+.list-group-item {
+	border-radius: 0px;
+	background-color: #eee;
+	color: #222;
+	font-size: .7em;
+
+}
+
+.list-group-item:hover{
+	background-color: #bbb;
+}
+
+.list-group {
+	border-radius: 0px;
+	max-height:400px;
+	overflow-y: auto;
+
+	text-align: center;
+	width: 100%;
+	padding: 0px;
+}
+
+.list-group:hover {
+	cursor: pointer;
+
+}
+
+.selectbox {
+	text-align: center;
+	display: block;
+	margin: 0 auto;
 }
 

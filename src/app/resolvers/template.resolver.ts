@@ -7,12 +7,9 @@ import { TemplatesService } from '../services/templates.service';
 @Injectable()
 export class TemplateResolve implements Resolve<any> {
 	constructor(private http: Http, private templatesService: TemplatesService ) {}
-
 	resolve(route:ActivatedRouteSnapshot) {
-		
         this.http.get("http://localhost:3000/templates/" + route.paramMap.get('id')) 
       		.subscribe((data) => {
- 
         		var obj = JSON.parse(data["_body"]);
         		console.log(obj);
         		var template = this.templatesService.buildTemplate(obj)
@@ -20,6 +17,5 @@ export class TemplateResolve implements Resolve<any> {
         		return temp;
 			})
 		;
-		
     }
 }
