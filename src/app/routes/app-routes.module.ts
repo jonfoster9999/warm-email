@@ -10,10 +10,14 @@ import { TemplateHomeComponent } from '../templates/template-home/template-home.
 import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { CanActivateViaUserService } from '../guards/guard'
+import { CanActivateHome } from '../guards/homeguard'
+import { AboutComponent } from '../about/about.component'
 
 
 const appRoutes = [
-	{ path: "", component: HomeComponent, pathMatch: "full"},
+	{ path: "", component: HomeComponent, canActivate: [
+		 CanActivateHome
+		], pathMatch: "full"},
 	{ path: "login", component: LoginComponent},
 	{ path: "templates", component: TemplatesComponent, canActivate: [
 		 CanActivateViaUserService
@@ -23,7 +27,8 @@ const appRoutes = [
 		{ path: ":id", component: TemplateDetailsComponent, pathMatch: "full"},
 		{ path: ":id/edit", component: TemplateEditComponent, resolve: {template: TemplateResolve}, pathMatch: "full"},
 		{ path: ":id/email", component: EmailComponent, resolve: {template: TemplateResolve}, pathMatch: "full"}
-	]}
+	]},
+	{ path: "about", component: AboutComponent }
 ]
 
 @NgModule({
