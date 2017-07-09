@@ -84,5 +84,19 @@ export class EmailComponent implements OnInit {
     var html = html.replace(/null/g, "**please enter a value**")
     el.innerHTML = html;
   }
+
+  onDeleteEmail(index) {
+    const control = (<FormArray>this.myForm.get('emails'))
+    control.removeAt(index);
+  }
+
+  closeImage = "http://localhost:4200/assets/close.ico"
+
+  onResetFields(index) {
+    this.myForm.reset();
+    var id = "body-" + index
+    var el = document.getElementById(id);
+    el.innerHTML = this.templatesService.preserveFormat(this.template["body"]);
+  }
 }
 
