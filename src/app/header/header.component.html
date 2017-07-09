@@ -1,30 +1,33 @@
-<nav class="navbar-default">
+<div class="contain">
+<nav class="navbar-default main" style="min-width: 1000px !important;">
 	<div class="container-fluid">
 		<div class="navbar-header">
-		<img src="http://images.clipartpanda.com/cute-sun-clipart-cartoon-sun.svg" 
+		
+			<a href="" class="navbar-brand head">
+				Warm Connection
+			</a><img class="sun-picture" src="http://images.clipartpanda.com/cute-sun-clipart-cartoon-sun.svg" 
 				style="height:30px;"
 				class="sun"
 				alt="">
-			<a style="margin-left: 15px;" href="" class="navbar-brand">
-				Warm Connection
-			</a>
 		</div>
 
-		<div class="collapse navbar-collapse">
+		<div class="">
 			<ul class="nav navbar-nav">
 				<li *ngIf="loggedIn"><a routerLink="templates">Manage Templates</a></li>
 				<li *ngIf="!loggedIn"><a routerLink="login">Login/Register</a></li>
-				<li><a routerLink="emails">View Demo</a></li>
-				<li><a routerLink="emails">About</a></li>
+				<li><a routerLink="about">About</a></li>
+				<li *ngIf="loggedIn" class="optional1" ><a class="logged-in-name">
+			<span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+			</li>
 							
 			</ul>
 
-			<ul class="nav navbar-nav pull-right" *ngIf="loggedIn">
-				<li class="pull-right" ><a class="logged-in-name">
-			Signed in as <span class="username">{{ currentUser.username }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+			<ul class="nav navbar-nav pull-right optional2" *ngIf="loggedIn">
+				<li  ><a class="logged-in-name">
+			Signed in as <span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
 			</li>
 			</ul>
-
 		</div>
 	</div>
 </nav>
+</div>
