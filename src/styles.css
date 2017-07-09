@@ -9,3 +9,13 @@ html, body {
 	height: 100%;
 }
 
+body{
+   min-width:900px; /* suppose you want minimun width of 1000px */
+   width: auto !important;  /* Firefox will set width as auto */
+   width:900px;             /* As IE ignores !important it will set width as 1000px; */
+}
+
+.navbar-collapse, .navbar-collapse.collapse {
+overflow: visible;}   
+.navbar-toggle {
+display: none;} 
