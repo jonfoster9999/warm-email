@@ -12,7 +12,7 @@ declare var $:any;
 export class LoginComponent implements OnInit {
 
   constructor(private usersService: UsersService) { }
-
+  duplicate = false
 
   ngOnInit() {
 	$(function() {
@@ -31,17 +31,21 @@ export class LoginComponent implements OnInit {
 			e.preventDefault();
 		});
 	});
+
+  this.usersService.sendDuplicate 
+    .subscribe( (data) => {
+        this.duplicate = data;
+    })
   }
 
   registrationForm = new FormGroup({
-  	'username': new FormControl(null, Validators.required),
   	'email': new FormControl(null, Validators.required),
   	'password1': new FormControl(null, Validators.required),
   	'password2': new FormControl(null, Validators.required)
   }, this.validateSecondPassword)
 
   loginForm = new FormGroup({
-  	'username': new FormControl(null, Validators.required),
+  	'email': new FormControl(null, Validators.required),
   	'password': new FormControl(null, Validators.required)
   })
 
@@ -61,5 +65,4 @@ export class LoginComponent implements OnInit {
     }
     return null;
   }
-
 }

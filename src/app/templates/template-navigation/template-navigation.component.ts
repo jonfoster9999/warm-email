@@ -13,7 +13,7 @@ import { UsersService } from '../../services/users.service';
 })
 export class TemplateNavigationComponent implements OnInit {
   title = 'app';
-  currentUser: User;
+  currentUser: any;
 
   newFlag = this.templatesService.newFlag;
 
@@ -26,7 +26,8 @@ export class TemplateNavigationComponent implements OnInit {
           private usersService: UsersService) {}
 
   ngOnInit() {
-    this.currentUser = this.usersService.currentUser;
+    this.currentUser = this.usersService.currentUser();
+    console.log(this.currentUser, "in navigation")
   	this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates")
   		.subscribe((data) => {
         	var templates = JSON.parse(data["_body"]);

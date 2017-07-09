@@ -26,3 +26,24 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+
+
+
+
+
+
+
+[x] Clear Fields/Reset Emails
+[x] controls are only displayed when used in template
+[] variables (**) need to be separated with a space
+[] record video 
+[] add persistance for 'batches' ------ next version
+[x] style on header / hover color
+[] About page
+[] While building emails, should say "back to templates"
+[] need notification of invalid login
+[x] cursor issue
+[] build a good sample template
+

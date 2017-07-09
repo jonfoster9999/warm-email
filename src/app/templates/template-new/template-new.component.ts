@@ -33,7 +33,7 @@ Message Below
   @ViewChild('f') myForm;
 
   ngOnInit() {
-    this.currentUser = this.usersService.currentUser;
+    this.currentUser = this.usersService.currentUser();
   	this.templatesService.newFlagEmitter.emit(true);
     
   }
@@ -62,8 +62,30 @@ Message Below
         thirdString = this.body.substring(startPos);
     this.body = firstString + secondString + thirdString;
     ctl.focus();
-    ctl.select();
+    setTimeout( () => {
+      ctl.setSelectionRange(startPos + secondString.length, startPos + secondString.length);
+    }, 0) 
   }
+
+  // setCaretPosition(elemId, caretPos) {
+  //   var elem = document.getElementById(elemId);
+
+  //   if(elem != null) {
+  //       if(elem.createTextRange) {
+  //           var range = elem.createTextRange();
+  //           range.move('character', caretPos);
+  //           range.select();
+  //       }
+  //       else {
+  //           if(elem.selectionStart) {
+  //               elem.focus();
+  //               elem.setSelectionRange(caretPos, caretPos);
+  //           }
+  //           else
+  //               elem.focus();
+  //       }
+  //    }
+  // }    
 
   newVariable() {
     var newVar = window.prompt("Add a new variable:")

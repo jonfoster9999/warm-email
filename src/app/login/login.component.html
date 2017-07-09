@@ -24,9 +24,9 @@
 								<form id="login-form" style="display: block;"
 								[formGroup]="loginForm" (ngSubmit)="onLogin()">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""
-										formControlName="username">
-										<span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Username required</span>
+										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value=""
+										formControlName="email">
+										<span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Email required</span>
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"
@@ -37,6 +37,7 @@
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
 										<label for="remember"> Remember Me</label>
 									</div> -->
+									<p id="login-error">Invalid Username or Password</p>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
@@ -61,15 +62,11 @@
 									[formGroup]="registrationForm"
 									(ngSubmit)="onRegister()">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""
-										formControlName="username">
-										<span *ngIf="!registrationForm.get('username').valid
-										&& registrationForm.get('username').touched">
-										Username Required</span>
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=""
+										<input type="email" name="email" id="email-register" tabindex="1" class="form-control" placeholder="Email Address" value=""
 										formControlName="email">
+										<span class="duplicateError" *ngIf="duplicate
+											   && registrationForm.get('email').valid
+										">Email Already Exists</span>
 										<span *ngIf="!registrationForm.get('email').valid
 										&& registrationForm.get('email').touched">
 										Email Required</span>

@@ -25,6 +25,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UsersService } from './services/users.service';
 import { CanActivateViaUserService } from './guards/guard'
+import { CanActivateHome } from './guards/homeguard';
+import { TemplatefilterPipe } from './pipes/templatefilter.pipe';
+import { AboutComponent } from './about/about.component';
+
 
 
 @NgModule({
@@ -43,7 +47,7 @@ import { CanActivateViaUserService } from './guards/guard'
     EmailMain2Component,
     TemplateHomeComponent,
     HomeComponent,      
-    LoginComponent
+    LoginComponent, TemplatefilterPipe, AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,8 @@ import { CanActivateViaUserService } from './guards/guard'
           TemplatesService, 
           TemplateResolve, 
           UsersService,
-          CanActivateViaUserService
+          CanActivateViaUserService,
+          CanActivateHome
   ],
   bootstrap: [AppComponent]
 })

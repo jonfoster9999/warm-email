@@ -110,6 +110,13 @@ span {
 #username.ng-invalid.ng-touched,
 #password.ng-invalid.ng-touched,
 #confirm-password.ng-invalid.ng-touched,
-#email.ng-invalid.ng-touched {
+#email.ng-invalid.ng-touched,
+#email-register.ng-invalid.ng-touched {
 	border: 1px solid red;
+}
+
+#login-error {
+	color: red;
+	display: none;
+	margin-top: -5px;
 }

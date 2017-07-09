@@ -26,3 +26,17 @@ label {
 input.form-control {
     line-height: .9em;
 }
+
+.delete {
+	color: black;
+	font-size: 1.5em;
+}
+.delete:hover {
+	color: red;
+	cursor: pointer;
+}
+
+img.close {
+	margin-right: 80px;
+	height: 20px;
+}
