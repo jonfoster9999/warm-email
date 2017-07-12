@@ -67,8 +67,11 @@ nav {
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-
     color: rgb(92, 184, 92);
+}
+
+.navbar-default .navbar-nav > li > a.logged-in-name:hover {
+  color: white;
 }
 
 @media (max-width: 767px) {

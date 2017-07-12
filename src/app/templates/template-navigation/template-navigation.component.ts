@@ -27,8 +27,7 @@ export class TemplateNavigationComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.usersService.currentUser();
-    console.log(this.currentUser, "in navigation")
-  	this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates")
+  	this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates")
   		.subscribe((data) => {
         	var templates = JSON.parse(data["_body"]);
         	this.templates = templates;
@@ -39,7 +38,7 @@ export class TemplateNavigationComponent implements OnInit {
   		})
     this.templatesService.updateTemplateEmitter
       .subscribe((data) => {
-        this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates")
+        this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates")
           .subscribe((data) => {
               var templates = JSON.parse(data["_body"]);
               this.templates = templates;

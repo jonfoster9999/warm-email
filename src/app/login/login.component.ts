@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 	});
 
   this.usersService.sendDuplicate 
-    .subscribe( (data) => {
+    .subscribe((data) => {
         this.duplicate = data;
     })
   }

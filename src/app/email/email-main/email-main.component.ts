@@ -18,19 +18,19 @@ export class EmailMainComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.template = new Template(null, null, null);
-    this.route.params
-      .subscribe((data) => {
-        this.http.get("http://localhost:3000/templates/" + data["id"]) 
-      .subscribe((data) => {
-        var obj = JSON.parse(data["_body"]);
-        var template = this.templatesService.buildTemplate(obj)
-        this.template = template;
-        this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
+    // this.template = new Template(null, null, null);
+    // this.route.params
+    //   .subscribe((data) => {
+    //     this.http.get("http://localhost:3000/templates/" + data["id"]) 
+    //   .subscribe((data) => {
+    //     var obj = JSON.parse(data["_body"]);
+    //     var template = this.templatesService.buildTemplate(obj)
+    //     this.template = template;
+    //     this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
 
-      })
+    //   })
 
-      })
+    //   })
   }
 
   onSubmit(form: NgForm) {

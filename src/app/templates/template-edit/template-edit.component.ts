@@ -15,7 +15,7 @@ declare var $:any;
 })
 export class TemplateEditComponent implements OnInit, AfterViewInit {
   currentUser;
-  template = {name: "loading", id: 1, body: "loading"}; 
+  template = {name: "loading", id: 1, body: "loading", properties: []}; 
   defaultVariables = []
   constructor(private http: Http, 
               private route: ActivatedRoute, 
@@ -28,7 +28,7 @@ export class TemplateEditComponent implements OnInit, AfterViewInit {
   	this.templatesService.newFlagEmitter.emit(true);
     this.route.params
       .subscribe((data) => {
-        this.http.get("http://localhost:3000/users/" + this.currentUser['id'] + "/templates/" + data["id"])
+        this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + data["id"])
           .subscribe((data) => {
             var template = JSON.parse(data["_body"])
             this.template = template
@@ -67,7 +67,7 @@ export class TemplateEditComponent implements OnInit, AfterViewInit {
     obj["properties"] = this.defaultVariables;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this.http.patch("http://localhost:3000/users/" + this.currentUser['id'] + "/templates/" + this.template.id, JSON.stringify(obj), options)
+    this.http.patch("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + this.template.id, JSON.stringify(obj), options)
       .subscribe((data) => {
 
         this.templatesService.updateTemplateEmitter.emit();

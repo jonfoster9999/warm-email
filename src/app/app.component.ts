@@ -11,23 +11,12 @@ import { Template } from './models/template.model';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  templates = []
-
-  selected = "1"
   constructor(private http: Http, private templatesService: TemplatesService) {
 
   }
 
 
   ngOnInit() {
-  	this.http.get("http://localhost:3000/templates")
-  		.subscribe((data) => {
-        var templates = JSON.parse(data["_body"]);
-        this.templates = templates;
-  			// this.templatesService.importTemplates(JSON.parse(data["_body"]));
-  			// console.log(JSON.parse(data["_body"]))
-  			// this.templates = this.templatesService.templates;
 
-  		})
   }
 }

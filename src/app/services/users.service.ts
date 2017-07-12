@@ -30,7 +30,7 @@ export class UsersService {
 	}
 
 	sendRegistration(formObject) {
-		this.http.post("http://localhost:3000/register", formObject) 
+		this.http.post("https://warm-email-backend.herokuapp.com/register", formObject) 
 			.subscribe((data) => {
 				if (data["_body"] !== "failure") {
 				//TODO: check if registration was successful
@@ -38,7 +38,7 @@ export class UsersService {
 				data = JSON.parse(data["_body"]);
 				localStorage.setItem('currentUser', JSON.stringify(new User(data["username"], data["email"], data["id"])))
 				// this.currentUser = new User(data["username"], data["email"], data["id"])
-				this.userLoggedInState.next(this.currentUser);
+				this.userLoggedInState.next(this.currentUser());
 				this.router.navigate(["/templates"])
 				} else {
 					var el = document.getElementById('email-register')
@@ -52,7 +52,7 @@ export class UsersService {
 	}
 
 	sendLogin(formObject) {
-		this.http.post("http://localhost:3000/login", formObject)
+		this.http.post("http://warm-email-backend.herokuapp.com/login", formObject)
 			.subscribe((data) => {
 
 				//TODO: check if login was successful

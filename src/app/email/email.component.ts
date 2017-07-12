@@ -14,26 +14,23 @@ import { UsersService } from '../services/users.service';
 })
 export class EmailComponent implements OnInit {
   currentUser;
-  emails = [1];
-
-  addEmail() {
-    this.emails.push(1);
-  };
+  myForm: FormGroup;
   counter = 0;
   template;
   bodyHtml;
+  contact_name;
+  i;
+  closeImage = "http://localhost:4200/assets/close.ico"
 
   constructor(private templatesService: TemplatesService, private http: Http,
               private route: ActivatedRoute, private usersService: UsersService) { }
-
-  contact_name = "peter"
 
   ngOnInit() {
     this.template = new Template(null, null, null);
     this.currentUser = this.usersService.currentUser;
     this.route.params
       .subscribe((data) => {
-        this.http.get("http://localhost:3000/users/" + this.currentUser["id"] + "/templates/" + data["id"]) 
+        this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser["id"] + "/templates/" + data["id"]) 
       .subscribe((data) => {
         var obj = JSON.parse(data["_body"]);
         var template = this.templatesService.buildTemplate(obj)
@@ -42,19 +39,13 @@ export class EmailComponent implements OnInit {
 
         this.onAddEmail()
       })
-
       })
-    var obj = {};
-
-
     this.myForm = new FormGroup({
         'emails': new FormArray([])
      })
-
   }
 
-  onAddEmail() {
-    
+  onAddEmail() { 
     var obj = {};
     for (var i = 0, n = this.template.properties.length; i < n; i++) {
         obj[this.template.properties[i]["name"]] = new FormControl();
@@ -63,15 +54,15 @@ export class EmailComponent implements OnInit {
     this.counter++
   }
 
+  formData () { 
+    return <FormArray>this.myForm.get('emails'); 
+  }
+
   onSubmit(form: NgForm) {
     console.log(this.myForm);
   }
 
-
-  myForm: FormGroup;
-
-  otherWay(i) {
-    
+  onInjectValues(i) { 
     var id = "body-" + i
     var el = document.getElementById(id);
     var firstArgument = el.innerText;
@@ -90,10 +81,8 @@ export class EmailComponent implements OnInit {
     control.removeAt(index);
   }
 
-  closeImage = "http://localhost:4200/assets/close.ico"
-
   onResetFields(index) {
-    this.myForm.reset();
+    this.myForm.get("emails").get(index + "").reset();
     var id = "body-" + index
     var el = document.getElementById(id);
     el.innerHTML = this.templatesService.preserveFormat(this.template["body"]);

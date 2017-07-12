@@ -107,7 +107,7 @@ Message Below
     obj["properties"] = this.defaultVariables;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this.http.post("http://localhost:3000/users/" + this.currentUser['id'] + "/templates", JSON.stringify(obj), options)
+    this.http.post("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates", JSON.stringify(obj), options)
       .subscribe((data) => {
         this.templatesService.updateTemplateEmitter.emit();
         this.router.navigate(['/templates'])

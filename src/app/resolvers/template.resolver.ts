@@ -3,15 +3,16 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Http } from '@angular/http'
 import { Template } from '../models/template.model';
 import { TemplatesService } from '../services/templates.service';
+import { UsersService } from '../services/users.service'
 
 @Injectable()
 export class TemplateResolve implements Resolve<any> {
-	constructor(private http: Http, private templatesService: TemplatesService ) {}
+	constructor(private http: Http, private templatesService: TemplatesService, private usersService: UsersService ) {}
 	resolve(route:ActivatedRouteSnapshot) {
-        this.http.get("http://localhost:3000/templates/" + route.paramMap.get('id')) 
+        var user_id = this.usersService.currentUser()["id"];
+        this.http.get("http://warm-email-backend.herokuapp.com/users/" + user_id + "/templates/" + route.paramMap.get('id')) 
       		.subscribe((data) => {
         		var obj = JSON.parse(data["_body"]);
-        		console.log(obj);
         		var template = this.templatesService.buildTemplate(obj)
         		var temp = template;
         		return temp;
