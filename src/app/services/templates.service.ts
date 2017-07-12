@@ -1,7 +1,7 @@
 import { Template } from "../models/template.model";
 import { Property } from "../models/property.model";
 import { EventEmitter } from "@angular/core";
-import { Subject } from 'rxjs/subject'
+import { Subject } from 'rxjs/Subject'
 
 export class TemplatesService {
 
