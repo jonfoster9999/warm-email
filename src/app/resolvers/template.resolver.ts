@@ -10,7 +10,7 @@ export class TemplateResolve implements Resolve<any> {
 	constructor(private http: Http, private templatesService: TemplatesService, private usersService: UsersService ) {}
 	resolve(route:ActivatedRouteSnapshot) {
         var user_id = this.usersService.currentUser()["id"];
-        this.http.get("http://warm-email-backend.herokuapp.com/users/" + user_id + "/templates/" + route.paramMap.get('id')) 
+        this.http.get("https://warm-email-backend.herokuapp.com/users/" + user_id + "/templates/" + route.paramMap.get('id')) 
       		.subscribe((data) => {
         		var obj = JSON.parse(data["_body"]);
         		var template = this.templatesService.buildTemplate(obj)

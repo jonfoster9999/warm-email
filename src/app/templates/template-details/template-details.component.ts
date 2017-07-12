@@ -39,7 +39,7 @@ export class TemplateDetailsComponent implements OnInit {
     this.currentUser = this.usersService.currentUser;
   	this.route.params 
   		.subscribe((data) => {
-  			this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + data["id"])
+  			this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + data["id"])
   				.subscribe((data) => {
   					var obj = JSON.parse(data["_body"]);
   					var template = this.templatesService.buildTemplate(obj);
@@ -50,7 +50,7 @@ export class TemplateDetailsComponent implements OnInit {
   }
 
   deleteTemplate() {
-    this.http.delete("http://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + this.template.id)
+    this.http.delete("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + this.template.id)
       .subscribe(
           (data) => {
             this.templatesService.updateTemplateEmitter.emit();

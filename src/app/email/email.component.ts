@@ -20,7 +20,7 @@ export class EmailComponent implements OnInit {
   bodyHtml;
   contact_name;
   i;
-  closeImage = "http://localhost:4200/assets/close.ico"
+  closeImage = "https://localhost:4200/assets/close.ico"
 
   constructor(private templatesService: TemplatesService, private http: Http,
               private route: ActivatedRoute, private usersService: UsersService) { }
@@ -30,7 +30,7 @@ export class EmailComponent implements OnInit {
     this.currentUser = this.usersService.currentUser;
     this.route.params
       .subscribe((data) => {
-        this.http.get("http://warm-email-backend.herokuapp.com/users/" + this.currentUser["id"] + "/templates/" + data["id"]) 
+        this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser["id"] + "/templates/" + data["id"]) 
       .subscribe((data) => {
         var obj = JSON.parse(data["_body"]);
         var template = this.templatesService.buildTemplate(obj)
