@@ -7,9 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "start": "node server.js",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod",
-    "start": "node server.js"
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
@@ -24,13 +24,13 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4",
-    "bootstrap": "^3.3.7",
-    "typescript": "~2.3.3"
+    "typescript": "~2.3.3",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/language-service": "^4.0.0",
