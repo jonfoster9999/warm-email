@@ -52,7 +52,7 @@ export class UsersService {
 	}
 
 	sendLogin(formObject) {
-		this.http.post("http://warm-email-backend.herokuapp.com/login", formObject)
+		this.http.post("https://warm-email-backend.herokuapp.com/login", formObject)
 			.subscribe((data) => {
 
 				//TODO: check if login was successful
