@@ -20,7 +20,7 @@ export class EmailComponent implements OnInit {
   bodyHtml;
   contact_name;
   i;
-  closeImage = "https://localhost:4200/assets/close.ico"
+  closeImage = "https://warm-connection.herokuapp.com/assets/close.ico"
 
   constructor(private templatesService: TemplatesService, private http: Http,
               private route: ActivatedRoute, private usersService: UsersService) { }
@@ -36,6 +36,7 @@ export class EmailComponent implements OnInit {
         var template = this.templatesService.buildTemplate(obj)
         this.template = template;
         this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
+        console.log(this.template)
 
         this.onAddEmail()
       })
