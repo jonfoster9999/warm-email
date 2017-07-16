@@ -14,3 +14,8 @@ img {
 	height: 200px;
 	overflow-y: auto;
 }
+
+.connection {
+	margin-left: -100px;
+
+}
