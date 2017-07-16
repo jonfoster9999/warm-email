@@ -19,8 +19,8 @@ export class TemplatesService {
 	}
 
 	convertTemplate(string, props, formData) {
-		var coolStrings = string.split("\n")
-		var end = coolStrings.map((string) => {
+		var strings = string.split("\n")
+		var end = strings.map((string) => {
 			var stringArr = string.split(/\s+/)
 			for (var i = 0; i < stringArr.length; i++) {
 				if (stringArr[i].startsWith("**")) {
@@ -28,7 +28,7 @@ export class TemplatesService {
 					var prop = stringArr[i].replace(/[*]+/gi, "")
 					prop = prop.match(/[A-Za-z0-9_]+/gi)[0]
 					var data = formData[prop];
-					stringArr[i] =  '<span class="color-me">' + data + (punc || "") + '</span>';
+					stringArr[i] =  '<span class="color-me">' + (data || ("**" + stringArr[i].match(/\w+/)) + "**") + (punc || "") + '</span>';
 				}
 			}
 			return  stringArr.join(" ")
@@ -36,6 +36,7 @@ export class TemplatesService {
 		var html = end.map((data) => {
 			return "<p>" + data + "</p>";
 		})
+		console.log(html)
 		return html.join(" ");
 	}
 

@@ -7,3 +7,10 @@ img {
 	margin: 0 auto;
 }
 
+.instructions {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 200px;
+	overflow-y: auto;
+}
