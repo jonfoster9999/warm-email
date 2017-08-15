@@ -46,7 +46,6 @@ ul {
 	margin-left: auto;
 	margin-right: auto;
 	background: #ddd;
-	;
 	background-size: cover;
 	padding-bottom: 10px;
 	color: #111;
@@ -72,33 +71,34 @@ li:hover {
 
 }
 
-.list-group-item:nth-child(1) {
+.list-group-item:nth-child(1), .list-group-item:nth-child(7), .list-group-item:nth-child(13) {
 	background-color: #BB0000;
 }
 
-.list-group-item:nth-child(2) {
+.list-group-item:nth-child(2), .list-group-item:nth-child(8), .list-group-item:nth-child(14) {
 	background-color: #39A59C;
 }
 
-.list-group-item:nth-child(3) {
+.list-group-item:nth-child(3), .list-group-item:nth-child(9), .list-group-item:nth-child(15) {
 	background-color: #344759
 }
 
-.list-group-item:nth-child(4) {
+.list-group-item:nth-child(4), .list-group-item:nth-child(10), .list-group-item:nth-child(16) {
 	background-color: #E8741E;
 }
 
-.list-group-item:nth-child(5) {
+.list-group-item:nth-child(5), .list-group-item:nth-child(11), .list-group-item:nth-child(17) {
 	background-color: purple;
 }
 
-.list-group-item:nth-child(6) {
+.list-group-item:nth-child(6), .list-group-item:nth-child(12), .list-group-item:nth-child(18) {
 	background-color: #CDC673;
 }
 
-
-
-
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
 
 ul {
 	max-height: 160px;

@@ -1,33 +1,32 @@
 <div class="contain">
-<nav class="navbar-default main" style="min-width: 1000px !important;">
-	<div class="container-fluid">
-		<div class="navbar-header">
-		
-			<a href="" class="navbar-brand head">
-				Warm Connection
-			</a><img class="sun-picture" src="http://images.clipartpanda.com/cute-sun-clipart-cartoon-sun.svg" 
-				style="height:30px;"
-				class="sun"
-				alt="">
-		</div>
+	<nav class="navbar-default main" style="min-width: 1000px !important;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="" class="navbar-brand head">
+					Warm Connection
+				</a><img class="sun-picture" src="http://images.clipartpanda.com/cute-sun-clipart-cartoon-sun.svg" 
+					style="height:30px;"
+					class="sun"
+					alt="">
+			</div>
 
-		<div class="">
-			<ul class="nav navbar-nav">
-				<li *ngIf="loggedIn"><a routerLink="templates">Manage Templates</a></li>
-				<li *ngIf="!loggedIn"><a routerLink="login">Login/Register</a></li>
-				<li><a routerLink="about">About</a></li>
-				<li *ngIf="loggedIn" class="optional1" ><a class="logged-in-name">
-			<span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
-			</li>
-							
-			</ul>
+			<div class="">
+				<ul class="nav navbar-nav">
+					<li *ngIf="loggedIn"><a routerLink="templates">Manage Templates</a></li>
+					<li *ngIf="!loggedIn"><a routerLink="login">Login/Register</a></li>
+					<li><a routerLink="about">About</a></li>
+					<li *ngIf="loggedIn" class="optional1" ><a class="logged-in-name">
+				<span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+				</li>
+								
+				</ul>
 
-			<ul class="nav navbar-nav pull-right optional2" *ngIf="loggedIn">
-				<li><a class="logged-in-name">
-			Signed in as <span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
-			</li>
-			</ul>
+				<ul class="nav navbar-nav pull-right optional2" *ngIf="loggedIn">
+					<li><a class="logged-in-name">
+				Signed in as <span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+				</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 </div>

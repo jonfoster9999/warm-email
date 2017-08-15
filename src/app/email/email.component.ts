@@ -15,7 +15,6 @@ import { UsersService } from '../services/users.service';
 export class EmailComponent implements OnInit {
   currentUser;
   myForm: FormGroup;
-  counter = 0;
   template;
   bodyHtml;
   contact_name;
@@ -26,21 +25,27 @@ export class EmailComponent implements OnInit {
               private route: ActivatedRoute, private usersService: UsersService) { }
 
   ngOnInit() {
-    this.template = new Template(null, null, null);
     this.currentUser = this.usersService.currentUser;
     this.route.params
+
+      //gets new data if url changes 
       .subscribe((data) => {
         this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser["id"] + "/templates/" + data["id"]) 
-      .subscribe((data) => {
-        var obj = JSON.parse(data["_body"]);
-        var template = this.templatesService.buildTemplate(obj)
-        this.template = template;
-        this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
-        console.log(this.template)
+      //handles the data of the new http request
+        .subscribe((data) => {
+          var obj = JSON.parse(data["_body"]);
+          var template = this.templatesService.buildTemplate(obj)
+          this.template = template;
+          this.bodyHtml = this.templatesService.preserveFormat(this.template["body"]);
+          this.onAddEmail()
+        })
+      })
 
-        this.onAddEmail()
-      })
-      })
+  //creates a new formgroup and formarray. each member of the formarray 
+  //is a Formgroup itself,  consisting of form controls based on the current
+  //template. These objects are constructed and pushed into the array each time 
+  //we want to add a new instance of the email to the page. 
+  
     this.myForm = new FormGroup({
         'emails': new FormArray([])
      })
@@ -51,8 +56,7 @@ export class EmailComponent implements OnInit {
     for (var i = 0, n = this.template.properties.length; i < n; i++) {
         obj[this.template.properties[i]["name"]] = new FormControl();
     }
-    (<FormArray>this.myForm.get('emails')).push(new FormGroup(obj))
-    this.counter++
+    (<FormArray>this.myForm.get('emails')).push(new FormGroup(obj));
   }
 
   formData () { 
@@ -60,6 +64,7 @@ export class EmailComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    //to be used later
     console.log(this.myForm);
   }
 

@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+
+    //due to the guard, if we are in this componenet we are definitely logged in.
   	this.usersService.userLoggedInState
   		.subscribe((user) => {
   			this.loggedIn = true;

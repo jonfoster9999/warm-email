@@ -26,7 +26,7 @@ const appRoutes = [
 		{ path: "new", component: TemplateNewComponent},
 		{ path: ":id", component: TemplateDetailsComponent, pathMatch: "full"},
 		{ path: ":id/edit", component: TemplateEditComponent, resolve: {template: TemplateResolve}, pathMatch: "full"},
-		{ path: ":id/email", component: EmailComponent, resolve: {template: TemplateResolve}, pathMatch: "full"}
+		{ path: ":id/email", component: EmailComponent, pathMatch: "full"}
 	]},
 	{ path: "about", component: AboutComponent }
 ]

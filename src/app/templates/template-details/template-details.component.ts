@@ -25,17 +25,6 @@ export class TemplateDetailsComponent implements OnInit {
   			  ) { }
 
   ngOnInit() {
-
-  	// this.templatesService.emitTemplateIndex.subscribe(
-  	// 	(data) => {
-  	// 		this.http.get("http://localhost:3000/templates/" + data)
-  	// 			.subscribe((data) => {
-  	// 				var obj = JSON.parse(data["_body"]);
-  	// 				var template = this.templatesService.buildTemplate(obj);
-  	// 				this.template = template;
-  	// 			})
-  	// 		}
-  	// 	)
     this.currentUser = this.usersService.currentUser;
   	this.route.params 
   		.subscribe((data) => {

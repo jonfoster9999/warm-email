@@ -18,6 +18,7 @@ export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
   currentUser;
 
   constructor(private templatesService: TemplatesService, private http: Http, private router: Router, private usersService: UsersService) { }
+  
   defaultVariables = [new Property("email"), 
                       new Property("subject"), 
                       new Property("contact_name"), 

@@ -28,7 +28,7 @@ export class TemplatesService {
 					var prop = stringArr[i].replace(/[*]+/gi, "")
 					prop = prop.match(/[A-Za-z0-9_]+/gi)[0]
 					var data = formData[prop];
-					stringArr[i] =  '<span class="color-me">' + (data || ("**" + stringArr[i].match(/\w+/)) + "**") + (punc || "") + '</span>';
+					stringArr[i] =  '<span class="color-me">' + (data || ("**" + stringArr[i].match(/\w+/)) + "**") + (punc || "") + ' </span>'.replace("  ", " ");
 				}
 			}
 			return  stringArr.join(" ")

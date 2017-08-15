@@ -3,28 +3,16 @@
 <br>
 <div class="form-border">
 <form class="form-group" (ngSubmit)="onSubmit(f)" #f="ngForm">
-
-<div class="form-group">
-	<label for="name">Template Name</label>
-	<input type="text" name="name" class="form-control" [(ngModel)]= "template.name">
-</div>
-
-
+	<div class="form-group">
+		<label for="name">Template Name</label>
+		<input type="text" name="name" class="form-control" [(ngModel)]= "template.name">
+	</div>
 <br>
-
-
 	<div class="row">
-		<div class="col-sm-3 ">
-
-
-
+		<div class="col-xs-3 ">
 			<label for="variables">Variables</label>
-
-
 			<div class="">
 				<ul id="list" class="list-group">
-
-
 				<li class="variable-list list-group-item" *ngFor="let item of template.properties; let i = index" (click)="addVariable(item)">
 					{{ item.name }}
 					<span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeItem($event, i)">	
@@ -34,15 +22,12 @@
 				<span (click)="newVariable()" class="new-variable indent">Add Variable +</span>
 			</div>
 		</div>
-		<div class="col-sm-9 pull-right form-group">
+		<div class="col-xs-9 pull-right form-group">
 			<label for="body">Template Body</label>
-
-
 			<textarea class="form-control" name="body" id="body_text_area" [(ngModel)]="template.body"></textarea>
 		</div>
 	</div>
 	<button class="form-control btn btn-success my-button">Update Template</button>
-
 </form>
 </div>
 

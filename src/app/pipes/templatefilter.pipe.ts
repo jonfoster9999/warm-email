@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'templatefilter'
 })
 export class TemplatefilterPipe implements PipeTransform {
-
   transform(controls: any, body?: any): any {
     var bodyArray = body.match(/\S+/g).filter((element) => {
     	return element.includes("**");

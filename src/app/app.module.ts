@@ -17,9 +17,9 @@ import { TemplateNewComponent } from './templates/template-new/template-new.comp
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { TemplateEditComponent } from './templates/template-edit/template-edit.component';
 import { TemplateResolve } from './resolvers/template.resolver';
-import { EmailMainComponent } from './email/email-main/email-main.component';
-import { EmailAddComponent } from './email/email-add/email-add.component';
-import { EmailMain2Component } from './email/email-main-2/email-main-2.component';
+// import { EmailMainComponent } from './email/email-main/email-main.component';
+// import { EmailAddComponent } from './email/email-add/email-add.component';
+// import { EmailMain2Component } from './email/email-main-2/email-main-2.component';
 import { TemplateHomeComponent } from './templates/template-home/template-home.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -42,9 +42,9 @@ import { AboutComponent } from './about/about.component';
     TemplateNewComponent,
     SafeHtmlPipe,
     TemplateEditComponent,
-    EmailMainComponent,
-    EmailAddComponent,
-    EmailMain2Component,
+    // EmailMainComponent,
+    // EmailAddComponent,
+    // EmailMain2Component,
     TemplateHomeComponent,
     HomeComponent,      
     LoginComponent, TemplatefilterPipe, AboutComponent

@@ -23,10 +23,6 @@
 <p class="add-email" (click)="addEmail()">Add Another Email +</p> -->
 
 
-
-
-
-
 <form>
 	<div [formGroup]="myForm">
 	<div formArrayName="emails">
@@ -56,7 +52,7 @@
 				<br>
 				<br>
 				<div class="container col-sm-6" id="body-{{i}}" [innerHTML]="bodyHtml"></div>
-				<!-- <span class="delete" (click)="onDeleteEmail(i)">X</span> -->
+
 				<img [src]="closeImage" (click)="onDeleteEmail(i)" class="close">
 			
 			</div>
@@ -64,7 +60,6 @@
 		<hr>
 		<button type="button" class="btn btn-primary" (click)="onAddEmail()">Add Email</button>
 
-<!-- 		<button (click)="onSubmit()" type="button" class=" btn btn-success">Save</button> -->
 	</div>
 </div>
 

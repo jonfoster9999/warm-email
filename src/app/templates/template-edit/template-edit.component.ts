@@ -26,6 +26,8 @@ export class TemplateEditComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.currentUser = this.usersService.currentUser;
   	this.templatesService.newFlagEmitter.emit(true);
+
+    //changes template if params changes
     this.route.params
       .subscribe((data) => {
         this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + data["id"])
