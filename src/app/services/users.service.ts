@@ -3,6 +3,7 @@ import { Http } from "@angular/http";
 import { User } from "../models/user.model";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
+import * as constants from "app/http.constants";
 
 @Injectable()
 export class UsersService {
@@ -30,7 +31,7 @@ export class UsersService {
 	}
 
 	sendRegistration(formObject) {
-		this.http.post("https://warm-email-backend.herokuapp.com/register", formObject) 
+		this.http.post(constants.API_URL + "/register", formObject) 
 			.subscribe((data) => {
 				if (data["_body"] !== "failure") {
 				//TODO: check if registration was successful
@@ -52,7 +53,7 @@ export class UsersService {
 	}
 
 	sendLogin(formObject) {
-		this.http.post("https://warm-email-backend.herokuapp.com/login", formObject)
+		this.http.post(constants.API_URL + "/login", formObject)
 			.subscribe((data) => {
 
 				//TODO: check if login was successful

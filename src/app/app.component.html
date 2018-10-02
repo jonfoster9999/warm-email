@@ -1,4 +1,8 @@
 <div class="main">
 <app-header></app-header>
 <router-outlet></router-outlet>
+<div class="waiting-overlay">
+    <h2 class="sending-emails">Sending <span class="gold">{{numberOfEmails}}</span> Email(s)</h2>
+    <div class="loader"></div>
+</div>
 </div>

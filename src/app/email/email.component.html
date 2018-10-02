@@ -1,68 +1,50 @@
-<!-- <div class="row">
-	<div class="col-sm-4">	
-		<p>
-		  {{ template?.name }}
-		</p>
-		<form class="form-group" (ngSubmit)="onSubmit(f)" #f="ngForm">
-			<fieldset *ngFor="let input of template.properties">
-			<label for="input.name">{{input.name}}</label>
-			<input class="form-control" type="text" name="{{input.name}}" ngModel>
-			</fieldset><br>
-			<button class="form-control btn btn-primary" type="submit">Change</button>
-		</form>
-	</div>
-		<div class="container col-sm-6" [innerHTML]="bodyHtml"></div>
+<br>
+<div>
+	<button 
+		(click)="sendEmails()"
+		class="btn btn-primary"
+		[disabled]="emailStore.emails.length < 1">Send Emails</button> Emails in queue: {{ emailStore.emails.length }}, Total emails: {{ formData().controls.length }}
+
 </div>
-<hr> -->
-
-
-
-
-<!-- <app-email-main *ngFor="let email of emails"></app-email-main>
-<hr>
-<p class="add-email" (click)="addEmail()">Add Another Email +</p> -->
-
-
 <form>
 	<div [formGroup]="myForm">
-	<div formArrayName="emails">
-			<div class="form-group"
-			*ngFor="let emailControl of formData().controls; let i = index" [formGroupName]="i">
-			<hr>
-			<div class="row">
-				<div class="col-sm-4">	
-
-					<h3>
-						{{ template?.name }}
-					</h3>
-					<div class="form-group">
-						<div *ngFor="let input of template.properties | templatefilter: template.body">
-							<label for="input.name">{{input.name}}</label>
-							<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
-
+		<div formArrayName="emails">
+			<div 
+				class="form-group"
+				*ngFor="let emailControl of formData().controls; let i = index" 
+				[formGroupName]="i">
+				<hr>
+				<div class="row">
+					<div class="col-sm-4">	
+						<h3>
+							{{ template?.name }}
+						</h3>
+						<div class="form-group">
+							<div *ngFor="let input of template.properties | templatefilter: template.body">
+								<label for="input.name">{{input.name}}</label>
+								<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
+							</div>
+							<br>
+							<button class="form-control btn btn-success" 
+								type="button" 
+								[disabled]="shouldInjectBeInvalid(i)"
+								(click)="onInjectValues(i); emailControl.isInjected = true;">Inject Values</button><br><br>
+							<button type="button" class="form-control btn btn-primary" (click)="onResetFields(i); emailControl.isInjected = false;">Reset Fields</button><br><br>
+							<button *ngIf="!emailIsInQueue(i)" type="button" class="form-control btn btn-warning" (click)="onAddToQueue(i)" [disabled]="!emailControl.isInjected">Add To Queue</button>
+							<button *ngIf="emailIsInQueue(i)" type="button" class="form-control btn btn-danger" (click)="removeFromQueue(i)">Remove from Queue</button>
 						</div>
-						<br>
-
-						<button class="form-control btn btn-success" type="button" (click)="onInjectValues(i)">Inject Values</button><br><br>
-						<button type="button" class="form-control btn btn-primary" (click)="onResetFields(i)">Reset Fields</button>
 					</div>
-
+					<br>
+					<br>
+					<br>
+					<div class="container col-sm-6" id="email-{{i}}" [innerHTML]="emailHtml"></div>
+					<img [src]="closeImage" (click)="onDeleteEmail(i)" class="close">
 				</div>
-				<br>
-				<br>
-				<br>
-				<div class="container col-sm-6" id="body-{{i}}" [innerHTML]="bodyHtml"></div>
-
-				<img [src]="closeImage" (click)="onDeleteEmail(i)" class="close">
-			
 			</div>
+			<hr>
+			<button type="button" class="btn btn-primary" (click)="onAddEmail()">Add Email</button>
 		</div>
-		<hr>
-		<button type="button" class="btn btn-primary" (click)="onAddEmail()">Add Email</button>
-
 	</div>
-</div>
-
 </form>
 
 

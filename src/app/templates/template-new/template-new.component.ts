@@ -6,6 +6,7 @@ import { Property } from '../../models/property.model'
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import 'rxjs/add/operator/toPromise';
+import * as constants from 'app/http.constants';
 declare var $:any;
 
 @Component({
@@ -25,11 +26,10 @@ export class TemplateNewComponent implements OnInit, OnDestroy, AfterViewInit {
                       new Property("contact_company")
                       ]
 
-    body = `To: **email** 
-Subject: **subject**
-_________________________
-Message Below
---------------------------------`;
+    body = `app-email **email** app-email
+app-subject **subject** app-subject
+app-body
+`;
 
   @ViewChild('f') myForm;
 
@@ -39,20 +39,26 @@ Message Below
     
   }
 
+  itemIsDeletable(item) {
+    const variables = ['email', 'subject']
+    return variables.indexOf(item.name) < 0;
+  }
+
   ngOnDestroy() {
   	this.templatesService.newFlagEmitter.emit(false);
   }
 
   addHandlers() {
     $.each($('.variable-list'), function(index, el) {
-        el.addEventListener("mouseenter", function(){
-          el.getElementsByTagName('span')[0].style.display = "inline";
-        }, false)
-        el.addEventListener("mouseleave", function(){
-          el.getElementsByTagName('span')[0].style.display = "none";
-        }, false)
+        if(el.getElementsByTagName('span')[0]) {
+          el.addEventListener("mouseenter", function(){
+            el.getElementsByTagName('span')[0].style.display = "inline";
+          }, false)
+          el.addEventListener("mouseleave", function(){
+            el.getElementsByTagName('span')[0].style.display = "none";
+          }, false)
+        }
     })
-
   }
 
   addVariable(element) {
@@ -67,26 +73,6 @@ Message Below
       ctl.setSelectionRange(startPos + secondString.length, startPos + secondString.length);
     }, 0) 
   }
-
-  // setCaretPosition(elemId, caretPos) {
-  //   var elem = document.getElementById(elemId);
-
-  //   if(elem != null) {
-  //       if(elem.createTextRange) {
-  //           var range = elem.createTextRange();
-  //           range.move('character', caretPos);
-  //           range.select();
-  //       }
-  //       else {
-  //           if(elem.selectionStart) {
-  //               elem.focus();
-  //               elem.setSelectionRange(caretPos, caretPos);
-  //           }
-  //           else
-  //               elem.focus();
-  //       }
-  //    }
-  // }    
 
   newVariable() {
     var newVar = window.prompt("Add a new variable:")
@@ -108,7 +94,7 @@ Message Below
     obj["properties"] = this.defaultVariables;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this.http.post("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates", JSON.stringify(obj), options)
+    this.http.post(constants.API_URL + "/users/" + this.currentUser['id'] + "/templates", JSON.stringify(obj), options)
       .subscribe((data) => {
         this.templatesService.updateTemplateEmitter.emit();
         this.router.navigate(['/templates'])

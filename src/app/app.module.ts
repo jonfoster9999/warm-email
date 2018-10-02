@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TemplatesComponent } from './templates/templates.component';
@@ -29,6 +30,13 @@ import { CanActivateHome } from './guards/homeguard';
 import { TemplatefilterPipe } from './pipes/templatefilter.pipe';
 import { AboutComponent } from './about/about.component';
 
+export class CustomOption extends ToastOptions {
+  animate = 'fade'; // you can override any options available
+  newestOnTop = false;
+  messageClass: 'toast-message';
+  titleClass: 'toast-title';
+  positionClass = 'toast-bottom-right';
+}
 
 
 @NgModule({
@@ -51,18 +59,21 @@ import { AboutComponent } from './about/about.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     JsonpModule,
     FormsModule,
     AppRoutes,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule.forRoot()
   ],
   providers: [
           TemplatesService, 
           TemplateResolve, 
           UsersService,
           CanActivateViaUserService,
-          CanActivateHome
+          CanActivateHome,
+          {provide: ToastOptions, useClass: CustomOption}
   ],
   bootstrap: [AppComponent]
 })

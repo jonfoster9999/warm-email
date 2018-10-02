@@ -12,7 +12,6 @@ export class CanActivateViaUserService implements CanActivate {
 		if (this.usersService.loggedIn) {
 			return true;
 		} else {
-			console.log("Refused")
 			this.router.navigate(['/login'])
 		}
 	}

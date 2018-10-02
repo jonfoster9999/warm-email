@@ -20,7 +20,7 @@
 						<ul id="list" class="list-group">
 							<li class="variable-list list-group-item" *ngFor="let item of defaultVariables; let i = index" (click)="addVariable(item)" >
 								{{ item.name }} 
-								<span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeItem($event, i)">	
+								<span  *ngIf="itemIsDeletable(item)" class="glyphicon glyphicon-remove" aria-hidden="true" (click)="removeItem($event, i)">	
 								</span>
 							</li>
 						</ul>

@@ -1,3 +1,4 @@
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Template } from "../models/template.model";
 import { Property } from "../models/property.model";
 import { EventEmitter } from "@angular/core";
@@ -6,6 +7,7 @@ import { Subject } from 'rxjs/Subject'
 export class TemplatesService {
 
 	newFlag = false;
+	numberOfEmails = new Subject();
 
 	buildTemplate(obj) {
 		var template = new Template(obj["name"], obj["body"])
@@ -28,7 +30,7 @@ export class TemplatesService {
 					var prop = stringArr[i].replace(/[*]+/gi, "")
 					prop = prop.match(/[A-Za-z0-9_]+/gi)[0]
 					var data = formData[prop];
-					stringArr[i] =  '<span class="color-me">' + (data || ("**" + stringArr[i].match(/\w+/)) + "**") + (punc || "") + ' </span>'.replace("  ", " ");
+					stringArr[i] = ((data || ("**" + stringArr[i].match(/\w+/)) + "**") + (punc || "")).replace("  ", " ");
 				}
 			}
 			return  stringArr.join(" ")
@@ -36,7 +38,6 @@ export class TemplatesService {
 		var html = end.map((data) => {
 			return "<p>" + data + "</p>";
 		})
-		console.log(html)
 		return html.join(" ");
 	}
 

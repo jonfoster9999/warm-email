@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { TemplatesService } from '../../services/templates.service';
 import { Template } from '../../models/template.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model'
 import { UsersService } from '../../services/users.service';
+import * as constants from 'app/http.constants';
 
 @Component({
   selector: 'app-template-navigation',
@@ -23,11 +25,15 @@ export class TemplateNavigationComponent implements OnInit {
   
   constructor(private http: Http, private templatesService: TemplatesService,
   			  private router: Router, private route: ActivatedRoute,
-          private usersService: UsersService) {}
+          private usersService: UsersService,
+          private toastr: ToastsManager,
+          private vcf: ViewContainerRef) {
+            this.toastr.setRootViewContainerRef(vcf);
+          }
 
   ngOnInit() {
     this.currentUser = this.usersService.currentUser();
-  	this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates")
+  	this.http.get(constants.API_URL + "/users/" + this.currentUser['id'] + "/templates")
   		.subscribe((data) => {
         	var templates = JSON.parse(data["_body"]);
         	this.templates = templates;
@@ -38,7 +44,7 @@ export class TemplateNavigationComponent implements OnInit {
   		})
     this.templatesService.updateTemplateEmitter
       .subscribe((data) => {
-        this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates")
+        this.http.get(constants.API_URL + "/users/" + this.currentUser['id'] + "/templates")
           .subscribe((data) => {
               var templates = JSON.parse(data["_body"]);
               this.templates = templates;

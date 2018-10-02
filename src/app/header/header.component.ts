@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { User } from '../models/user.model';
 import { UsersService } from '../services/users.service';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -13,11 +14,12 @@ export class HeaderComponent implements OnInit {
   currentUser: User
   constructor(private usersService: UsersService, 
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastsManager,
+              private vcr: ViewContainerRef) { 
+              }
 
   ngOnInit() {
-
-    //due to the guard, if we are in this componenet we are definitely logged in.
   	this.usersService.userLoggedInState
   		.subscribe((user) => {
   			this.loggedIn = true;

@@ -5,6 +5,7 @@ import { Property } from '../../models/property.model';
 import { Http } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../services/users.service'
+import * as constants from 'app/http.constants';
 
 @Component({
   selector: 'app-template-details',
@@ -28,7 +29,7 @@ export class TemplateDetailsComponent implements OnInit {
     this.currentUser = this.usersService.currentUser;
   	this.route.params 
   		.subscribe((data) => {
-  			this.http.get("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + data["id"])
+  			this.http.get(constants.API_URL + "/users/" + this.currentUser['id'] + "/templates/" + data["id"])
   				.subscribe((data) => {
   					var obj = JSON.parse(data["_body"]);
   					var template = this.templatesService.buildTemplate(obj);
@@ -39,7 +40,7 @@ export class TemplateDetailsComponent implements OnInit {
   }
 
   deleteTemplate() {
-    this.http.delete("https://warm-email-backend.herokuapp.com/users/" + this.currentUser['id'] + "/templates/" + this.template.id)
+    this.http.delete(constants.API_URL + "/users/" + this.currentUser['id'] + "/templates/" + this.template.id)
       .subscribe(
           (data) => {
             this.templatesService.updateTemplateEmitter.emit();
