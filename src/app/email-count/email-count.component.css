@@ -1,0 +1,52 @@
+
+
+
+.container {
+    padding: 60px;
+}
+
+.glyphicon-ok {
+    color: green;
+    position: absolute;
+    top: 10px;
+    margin-left: 20px;
+}
+
+td {
+    position: relative;
+}
+
+.clear-btn {
+    float: right;
+}
+
+.manual_follow_up {
+    background-color: #aaa;
+    color: rgb(23, 20, 20);
+}
+
+.manual_follow_up_badge {
+    position: absolute; 
+    height: 36px; 
+    background-color: pink; 
+    color: red;
+    top: 0px;
+    left: -88px;
+    vertical-align: center;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: .7em;
+    padding: 0px 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.row_checked {
+    background-color: lightgreen;
+    color: green;
+}
+
+.clickable {
+    cursor: pointer;
+}

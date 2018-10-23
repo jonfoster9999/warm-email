@@ -1,0 +1,24 @@
+<br>
+<br>
+<br>
+
+<div class="container">
+  <!-- <div class="form-group manual-follow-up-input">
+      <input type="text" class="form-control" #manualFollowUpInput>
+      <button (click)="onAddManualFollowUp(manualFollowUpInput)" type="text" class="form-control btn btn-primary">Add EMAIL To Manual Follow Ups</button>
+  </div>
+  <br> -->
+
+  <div class="form-group manual-follow-up-input">
+      <input type="text" class="form-control" #manualFollowUpInputDomain (keyup.enter)="onAddManualFollowUpDomain(manualFollowUpInputDomain)">
+      <button (click)="onAddManualFollowUpDomain(manualFollowUpInputDomain)" type="text" class="form-control btn btn-success">Add an EMAIL or DOMAIN</button>
+  </div>
+  <table class="table">
+    <th scope="col">Email</th>
+    <th scope="col"></th>
+    <tr scope="row" *ngFor="let email of manualFollowUpEmails; let i = index">
+      <td>{{email}}</td>
+      <td><span class="remove" (click)="removeManualFollowUp(email)">Remove</span></td>
+    </tr>
+  </table>
+</div>

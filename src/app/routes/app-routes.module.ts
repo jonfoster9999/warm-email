@@ -1,5 +1,8 @@
+import { ManageFollowUpsComponent } from './../manage-follow-ups/manage-follow-ups.component';
+import { HomeEmailCountComponent } from './../home-email-count/home-email-count.component';
+import { EmailCountComponent } from './../email-count/email-count.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { TemplatesComponent } from '../templates/templates.component'
 import { TemplateDetailsComponent } from '../templates/template-details/template-details.component';
 import { TemplateNewComponent } from '../templates/template-new/template-new.component';
@@ -28,7 +31,11 @@ const appRoutes = [
 		{ path: ":id/edit", component: TemplateEditComponent, resolve: {template: TemplateResolve}, pathMatch: "full"},
 		{ path: ":id/email", component: EmailComponent, pathMatch: "full"}
 	]},
-	{ path: "about", component: AboutComponent }
+	{ path: "about", component: AboutComponent },
+	{ path: "email-count", component: HomeEmailCountComponent, canActivate: [CanActivateViaUserService], children: [
+		{ path: "", component: EmailCountComponent},
+		{ path: "manage-follow-ups", component: ManageFollowUpsComponent }
+	]}
 ]
 
 @NgModule({

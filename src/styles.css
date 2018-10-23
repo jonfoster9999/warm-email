@@ -20,11 +20,11 @@ overflow: visible;}
 .navbar-toggle {
 display: none;} 
 
-.toast-message {
+/* .toast-message {
     padding: 20px 120px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-} 
+}  */
 
 .waiting-overlay {
     background: rgba(0, 0, 0, .8);

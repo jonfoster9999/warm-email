@@ -1,0 +1,63 @@
+
+
+
+
+<div class="container">
+  <div *ngFor="let emailObj of emailArr; let topIndex = index">
+    <h1>{{emailObj.title}}</h1>
+    <button class="btn btn-primary clear-btn" (click)="clearChecks(topIndex)">Clear Checks</button>
+    <table class="table">
+      <th scope="col">Email</th>
+      <th scope="col">Type</th>
+      <th scope="col">Last Contact</th>
+      <th scope="col">Count</th>
+      <tr scope="row" [class.manual_follow_up]="count.manual_follow_up" [class.row_checked]="count.checked" *ngFor="let count of emailObj.collection; let i = index">
+        <td style="position:relative;"><div *ngIf="count.manual_follow_up" class="manual_follow_up_badge">Manual Follow Up</div>{{count.email}}</td>
+        <td>{{count.email_type}}</td>
+        <td>{{count.last_email}}</td>
+        <td (click)="markRow(topIndex, i)" class="clickable"> 
+          {{count.count}} 
+          <span *ngIf="count.checked" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <!-- <h1>Supervisors:</h1>
+  <button class="btn btn-primary clear-btn" (click)="clearChecks()">Clear Checks</button>
+  <br><br><br>
+  <table class="table">
+      <th scope="col">Email</th>
+      <th scope="col">Type</th>
+      <th scope="col">Last Contact</th>
+      <th scope="col">Count</th>
+      <tr scope="row" *ngFor="let count of sortedSupArr; let i = index" (click)="markSupRow(i)">
+        <td>{{count.email}}</td>
+        <td>{{count.email_type}}</td>
+        <td>{{count.last_email}}</td>
+        <td>
+          {{count.count}} 
+          <span *ngIf="count.checked" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </td>
+      </tr>
+    </table>
+
+    <h1>Advertising Agencies:</h1>
+    <button class="btn btn-primary clear-btn" (click)="clearChecks()">Clear Checks</button>
+    <br><br><br>
+    <table class="table">
+        <th scope="col">Email</th>
+        <th scope="col">Type</th>
+        <th scope="col">Last Contact</th>
+        <th scope="col">Count</th>
+        <tr scope="row" *ngFor="let count of sortedAdArr; let i = index" (click)="markAdRow(i)">
+          <td>{{count.email}}</td>
+          <td>{{count.email_type}}</td>
+          <td>{{count.last_email}}</td>
+          <td>
+            {{count.count}} 
+            <span *ngIf="count.checked" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          </td>
+        </tr>
+      </table> -->
+</div>

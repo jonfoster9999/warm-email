@@ -18,9 +18,6 @@ import { TemplateNewComponent } from './templates/template-new/template-new.comp
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { TemplateEditComponent } from './templates/template-edit/template-edit.component';
 import { TemplateResolve } from './resolvers/template.resolver';
-// import { EmailMainComponent } from './email/email-main/email-main.component';
-// import { EmailAddComponent } from './email/email-add/email-add.component';
-// import { EmailMain2Component } from './email/email-main-2/email-main-2.component';
 import { TemplateHomeComponent } from './templates/template-home/template-home.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -29,15 +26,18 @@ import { CanActivateViaUserService } from './guards/guard'
 import { CanActivateHome } from './guards/homeguard';
 import { TemplatefilterPipe } from './pipes/templatefilter.pipe';
 import { AboutComponent } from './about/about.component';
+import { EmailCountComponent } from './email-count/email-count.component';
+import { HomeEmailCountComponent } from './home-email-count/home-email-count.component';
+import { ManageFollowUpsComponent } from './manage-follow-ups/manage-follow-ups.component';
 
 export class CustomOption extends ToastOptions {
-  animate = 'fade'; // you can override any options available
+  animate = 'flyLeft'; // you can override any options available
   newestOnTop = false;
   messageClass: 'toast-message';
   titleClass: 'toast-title';
-  positionClass = 'toast-bottom-right';
+  positionClass = 'toast-bottom-full-width';
+  showCloseButton = true;
 }
-
 
 @NgModule({
   declarations: [
@@ -50,12 +50,9 @@ export class CustomOption extends ToastOptions {
     TemplateNewComponent,
     SafeHtmlPipe,
     TemplateEditComponent,
-    // EmailMainComponent,
-    // EmailAddComponent,
-    // EmailMain2Component,
     TemplateHomeComponent,
     HomeComponent,      
-    LoginComponent, TemplatefilterPipe, AboutComponent
+    LoginComponent, TemplatefilterPipe, AboutComponent, EmailCountComponent, HomeEmailCountComponent, ManageFollowUpsComponent
   ],
   imports: [
     BrowserModule,

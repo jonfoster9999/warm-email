@@ -1,6 +1,6 @@
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import * as constants from './../http.constants';
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, HostListener, ElementRef, Renderer2 } from '@angular/core';
 import { TemplatesService } from '../services/templates.service';
 import { Http } from '@angular/http';
 import { Template } from '../models/template.model';
@@ -21,6 +21,21 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
+  eventTriggered = false;
+  @ViewChild('hiddenButton') hiddenButton: ElementRef;
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event){
+    var y = window.scrollY;
+    if (y >= 103) {
+      this.eventTriggered = true;
+      this.renderer.removeClass(this.hiddenButton.nativeElement, 'bottom-right-button-hidden')
+      this.renderer.addClass(this.hiddenButton.nativeElement, 'bottom-right-button-show')
+    } else {
+      if (this.eventTriggered) {
+        this.renderer.removeClass(this.hiddenButton.nativeElement, 'bottom-right-button-show')
+        this.renderer.addClass(this.hiddenButton.nativeElement, 'bottom-right-button-hidden')
+      }
+    }
+  } 
   currentUser;
   myForm: FormGroup;
   template;
@@ -35,15 +50,16 @@ export class EmailComponent implements OnInit {
 
   constructor(private templatesService: TemplatesService, private http: Http,
               private route: ActivatedRoute, private usersService: UsersService,
-              public toastr: ToastsManager, vcr: ViewContainerRef) { 
-              }
+              public toastr: ToastsManager, vcr: ViewContainerRef,
+              private renderer: Renderer2) { 
+            }
 
   shouldInjectBeInvalid(i) {
     return !this.myForm.get('emails').get(String(i)).valid;
   }
 
   ngOnInit() {
-    this.currentUser = this.usersService.currentUser;
+    this.currentUser = this.usersService.currentUser();
     this.route.params 
       .map(data => data['id'])
       .switchMap(id => {
@@ -74,6 +90,51 @@ export class EmailComponent implements OnInit {
     return <FormArray>this.myForm.get('emails'); 
   }
 
+  checkSentAlready(i) {
+    let email = this.myForm.get('emails').get(String(i)).value['email']
+    if (email) {
+      email = email.trim();
+      this.http.get(constants.API_URL + '/users/' + this.currentUser.id + '/sent_emails')
+        .map(res => res.json())
+        .subscribe(data => {
+          const results = data.filter(x => {
+            return x.email == email
+          })
+          const el = document.getElementById('button-' + i);
+          if (results.length > 0) {
+            el.style.backgroundColor = 'rgb(244, 102, 64)';
+            el.style.color = 'white';
+            // el.style.backgroundColor = 'gold';
+          } else {
+            el.style.backgroundColor = 'lightgoldenrodyellow';
+            el.style.color = 'black'
+
+          }
+          el.innerText = 'Email Count History: ' + results.length;
+  
+        })
+    }
+  }
+
+  resetEmailCount(i) {
+    this.checkSentAlready(i);
+    this.checkDuplicateOnPage(i);
+  }
+
+  checkDuplicateOnPage(i) {
+    const currentEmail = this.myForm.get('emails').get(String(i)).get('email').value;
+
+    const emails = (<FormArray>this.myForm.get('emails')).controls.filter(control => {
+      return control.get('email').value == currentEmail;
+    })
+    const el = document.getElementById('duplicate-' + i);
+    if (emails.length > 1 && (currentEmail.trim() != '')) {
+      el.innerHTML = 'duplicate email on page';
+    } else {
+      el.innerHTML = '';
+    };
+  }
+
   sendEmails() {
     const overlay = document.getElementsByClassName('waiting-overlay')[0] as HTMLElement;
     this.templatesService.numberOfEmails.next(this.emailStore.emails.length)
@@ -90,16 +151,16 @@ export class EmailComponent implements OnInit {
           }
         })
 
+        this.http.post(constants.API_URL + '/users/' + this.currentUser["id"] + '/sent_emails', { email: data['sent_email_addresses']})
+          .subscribe(data => {
+            console.log('sent', data);
+        })
+
+
         if (data['errors'].length == 0) {
-          this.toastr.success(`${data['successes'].length} of ${data['total_attempts']} messages sent!`)
-          const toast = document.getElementsByClassName('toast-message')[0] as HTMLElement;
-          toast.style.backgroundColor = 'lightgreen';
-          toast.style.color = 'darkgreen';
+          this.toastr.success(`${data['successes'].length} of ${data['total_attempts']} messages sent!`);
         } else {
-          this.toastr.warning(`${data['successes'].length} of ${data['total_attempts']} messages sent!`)
-          const toast = document.getElementsByClassName('toast-message')[0] as HTMLElement;
-          toast.style.backgroundColor = 'pink';
-          toast.style.color = 'red';
+          this.toastr.error(`${data['successes'].length} of ${data['total_attempts']} messages sent!`);
         }
       })
   }
@@ -111,14 +172,27 @@ export class EmailComponent implements OnInit {
     var email = text.match(/app-email(.*?)app-email/)[0].replace(/app-email/g, '').trim();
     var subject = text.match(/app-subject(.*?)app-subject/)[0].replace(/app-subject/g, '').trim();
     var body = text.split("app-body").pop();
-
+    var e = document.getElementById("select-" + i);
+    var email_type = e['options'][e['selectedIndex']].value;
 
     this.emailStore.emails.push({
       emailIndex: i,
       email: email, 
       subject: subject,
-      body: body
+      body: body,
+      email_type: email_type
     })
+  }
+
+  addAllToQueue() {
+    this.clearQueue();
+    (<FormArray>this.myForm.get('emails')).controls.forEach((control, i) => {
+      this.onAddToQueue(i);
+    })
+  }
+
+  clearQueue() {
+    this.emailStore.emails = [];
   }
 
   removeFromQueue(i) {
@@ -164,6 +238,10 @@ export class EmailComponent implements OnInit {
     var el = document.getElementById(id);
     el.innerHTML = this.templatesService.preserveFormat(this.template["body"]);
     this.removeFromQueue(index);
+    const el2 = document.getElementById('button-' + index);
+    el2.style.backgroundColor = 'lightgoldenrodyellow';
+    el2.style.color = 'black';
+    el2.innerHTML = 'Email Count History: 0'
   }
 }
 

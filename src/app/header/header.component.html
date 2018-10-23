@@ -14,11 +14,11 @@
 				<ul class="nav navbar-nav">
 					<li *ngIf="loggedIn"><a routerLink="templates">Manage Templates</a></li>
 					<li *ngIf="!loggedIn"><a routerLink="login">Login/Register</a></li>
+					<li *ngIf="loggedIn"><a routerLink="email-count">EmailCount</a></li>
 					<li><a routerLink="about">About</a></li>
 					<li *ngIf="loggedIn" class="optional1" ><a class="logged-in-name">
-				<span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
-				</li>
-								
+						<span class="username">{{ currentUser.email }} </span><a class="logout" (click)="onLogOut()">(logout)</a></a>
+					</li>					
 				</ul>
 			</div>
 		</div>

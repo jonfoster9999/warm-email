@@ -46,7 +46,7 @@ export class TemplateEditComponent implements OnInit, AfterViewInit {
   }
 
   itemIsDeletable(item) {
-    const variables = ['email', 'subject']
+    const variables = ['email']
     return variables.indexOf(item.name) < 0;
   }
  

@@ -3,7 +3,24 @@
 	<button 
 		(click)="sendEmails()"
 		class="btn btn-primary"
-		[disabled]="emailStore.emails.length < 1">Send Emails</button> Emails in queue: {{ emailStore.emails.length }}, Total emails: {{ formData().controls.length }}
+		[disabled]="emailStore.emails.length < 1">Send Emails</button> 
+	<!-- <button 
+		(click)="addAllToQueue()"
+		class="btn btn-primary"
+		>Add All To Queue</button>  -->
+	<button 
+		(click)="clearQueue()"
+		class="btn btn-warning"
+		[disabled]="emailStore.emails.length == 0">Clear Queue</button>	
+		<div class="emails-in-queue">
+			{{ emailStore.emails.length }} of {{ formData().controls.length }}
+		</div>
+	<button 
+		#hiddenButton
+		id="hiddenButton"
+		(click)="sendEmails()"
+		class="btn btn-primary bottom-right-button"
+		[disabled]="emailStore.emails.length < 1">Send Emails</button> 
 
 </div>
 <form>
@@ -19,16 +36,31 @@
 						<h3>
 							{{ template?.name }}
 						</h3>
+						<span [id]="'duplicate-' + i" class="duplicate"></span>
+						<div [id]="'button-' + i" class="email-history">
+							Email Count History: 0
+						</div>
 						<div class="form-group">
 							<div *ngFor="let input of template.properties | templatefilter: template.body">
 								<label for="input.name">{{input.name}}</label>
-								<input class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name"  >
+								<input *ngIf="input.name == 'email'" (keydown)="resetEmailCount(i)" (keyup)="resetEmailCount(i)" class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name">
+								<input *ngIf="input.name != 'email'" class="form-control" type="text" name="{{input.name}}" [formControlName]="input.name">
 							</div>
+							<br>
+							<select class="form-control" [id]="'select-' + i">
+								<option value="supervisor">Supervisor</option>
+								<option value="film-studio">Film Studio</option>
+								<option value="ad">Ad Agency</option>
+								<option value="tv-network">TV Network</option>
+								<option value="video-game">Video Game</option>
+							</select>
 							<br>
 							<button class="form-control btn btn-success" 
 								type="button" 
 								[disabled]="shouldInjectBeInvalid(i)"
-								(click)="onInjectValues(i); emailControl.isInjected = true;">Inject Values</button><br><br>
+								(click)="onInjectValues(i); emailControl.isInjected = true;">Inject Values</button>
+								<br>
+								<br>
 							<button type="button" class="form-control btn btn-primary" (click)="onResetFields(i); emailControl.isInjected = false;">Reset Fields</button><br><br>
 							<button *ngIf="!emailIsInQueue(i)" type="button" class="form-control btn btn-warning" (click)="onAddToQueue(i)" [disabled]="!emailControl.isInjected">Add To Queue</button>
 							<button *ngIf="emailIsInQueue(i)" type="button" class="form-control btn btn-danger" (click)="removeFromQueue(i)">Remove from Queue</button>

@@ -58,12 +58,12 @@ export class UsersService {
 
 				//TODO: check if login was successful
 				if (data["_body"] !== "failure") {
-				this.loggedIn = true;
-				data = JSON.parse(data["_body"]);
-				localStorage.setItem('currentUser', JSON.stringify(new User(data["username"], data["email"], data["id"])))
-				// this.currentUser = new User(data["username"], data["email"], data["id"])
-				this.userLoggedInState.next(this.currentUser());
-				this.router.navigate(["/templates"])
+					this.loggedIn = true;
+					data = JSON.parse(data["_body"]);
+					localStorage.setItem('currentUser', JSON.stringify(new User(data["username"], data["email"], data["id"])))
+					// this.currentUser = new User(data["username"], data["email"], data["id"])
+					this.userLoggedInState.next(this.currentUser());
+					this.router.navigate(["/templates"])
 				} else {
 					var el = document.getElementById('login-error');
 					el.style.display = "block";
