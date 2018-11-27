@@ -55,7 +55,7 @@ export class EmailCountComponent implements OnInit {
               latestDate = date;
             }
           })
-          return latestDate.getMonth() + "-" + latestDate.getDate() + "-" + latestDate.getFullYear();
+          return (latestDate.getMonth() + 1) + "-" + latestDate.getDate() + "-" + latestDate.getFullYear();
         }
 
         data.forEach(function(email) {
@@ -75,44 +75,20 @@ export class EmailCountComponent implements OnInit {
           bigObj[arr] = bigObj[arr].sort(this.sortFunction);
           this.emailArr.push({title: arr, collection: bigObj[arr]})
         }
-
-
-        // console.log('object keys', objKeys);
-        // const supArr = userArr.filter(x => {
-        //   return x.email_type == 'supervisor'
-        // })
-
-        // const adArr = userArr.filter(x => {
-        //   return x.email_type == 'ad'
-        // })
-
-        // const sortedSupArr = supArr.sort(this.sortFunction)
-
-        // const sortedAdArr = adArr.sort(this.sortFunction)
-
-        // this.sortedSupArr = sortedSupArr;
-        // this.sortedAdArr = sortedAdArr;
       })
-
   }
 
   sortFunction(a, b) {
-      // if (x.count != y.count) {
-      //   return x.count - y.count;
-      // } else {
-      //   return x.last_email - y.last_email;
-      // }
+    var keyA1 = a.count;
+    var keyB1 = b.count;
+    var keyA2 = new Date(a.last_email);
+    var keyB2 = new Date(b.last_email);
 
-      var keyA1 = a.count;
-      var keyB1 = b.count;
-      var keyA2 = new Date(a.last_email);
-      var keyB2 = new Date(b.last_email);
-
-      if (keyA1 < keyB1) return -1;
-      if (keyA1 > keyB1) return 1;
-      if (keyA2 < keyB2) return -1;
-      if (keyA2 > keyB2) return 1;
-      return 0;
+    if (keyA1 < keyB1) return -1;
+    if (keyA1 > keyB1) return 1;
+    if (keyA2 < keyB2) return -1;
+    if (keyA2 > keyB2) return 1;
+    return 0;
   }
 
   markRow(topIndex, i) {
