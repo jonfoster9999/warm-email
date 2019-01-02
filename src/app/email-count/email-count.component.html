@@ -5,6 +5,8 @@
 <div class="container">
   <div *ngFor="let emailObj of emailArr; let topIndex = index">
     <h1>{{emailObj.title}}</h1>
+    <button class="btn btn-success clear-btn" style="margin-left: 5px;" (click)="exportCSV()">Export CSV</button>
+
     <button class="btn btn-primary clear-btn" (click)="clearChecks(topIndex)">Clear Checks</button>
     <table class="table">
       <th scope="col">Email</th>

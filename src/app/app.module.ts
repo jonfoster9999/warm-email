@@ -29,6 +29,7 @@ import { AboutComponent } from './about/about.component';
 import { EmailCountComponent } from './email-count/email-count.component';
 import { HomeEmailCountComponent } from './home-email-count/home-email-count.component';
 import { ManageFollowUpsComponent } from './manage-follow-ups/manage-follow-ups.component';
+import { PapaParseModule } from 'ngx-papaparse';
 
 export class CustomOption extends ToastOptions {
   animate = 'flyLeft'; // you can override any options available
@@ -62,6 +63,7 @@ export class CustomOption extends ToastOptions {
     FormsModule,
     AppRoutes,
     ReactiveFormsModule,
+    PapaParseModule,
     ToastModule.forRoot()
   ],
   providers: [

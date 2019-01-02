@@ -11,6 +11,7 @@ import { UsersService } from '../services/users.service';
 import { Response } from '@angular/http/src/static_response';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Validators } from '@angular/forms';
+import { PapaParseService } from 'ngx-papaparse';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
@@ -37,9 +38,11 @@ export class EmailComponent implements OnInit {
     }
   } 
   currentUser;
+  reader;
   myForm: FormGroup;
   template;
   emailHtml;
+  localEmails = []
   contact_name;
   emailStore: any = {
     emails: []
@@ -51,7 +54,8 @@ export class EmailComponent implements OnInit {
   constructor(private templatesService: TemplatesService, private http: Http,
               private route: ActivatedRoute, private usersService: UsersService,
               public toastr: ToastsManager, vcr: ViewContainerRef,
-              private renderer: Renderer2) { 
+              private renderer: Renderer2,
+              private papa: PapaParseService) { 
             }
 
   shouldInjectBeInvalid(i) {
@@ -139,7 +143,7 @@ export class EmailComponent implements OnInit {
     const overlay = document.getElementsByClassName('waiting-overlay')[0] as HTMLElement;
     this.templatesService.numberOfEmails.next(this.emailStore.emails.length)
     overlay.style.display = 'block';
-    
+    console.log('this is the email store', this.emailStore);
     this.http.post(constants.API_URL + '/send_emails', this.emailStore)
       .map(data => data.json())
       .subscribe((data: Response) => {
@@ -174,6 +178,51 @@ export class EmailComponent implements OnInit {
     var body = text.split("app-body").pop();
     var e = document.getElementById("select-" + i);
     var email_type = e['options'][e['selectedIndex']].value;
+
+
+    this.emailStore.emails.push({
+      emailIndex: i,
+      email: email, 
+      subject: subject,
+      body: body,
+      email_type: email_type
+    })
+
+  
+  }
+
+  localAddToQueue(html, i) {
+    // var div = document.createElement('div');
+    // div.innerHTML = html;
+
+    // var text = div.textContent;
+    // var email = text.match(/app-email(.*?)app-email/)[0].replace(/app-email/g, '').trim();
+    // var subject = text.match(/app-subject(.*?)app-subject/)[0].replace(/app-subject/g, '').trim();
+    // var body = text.split("app-body").pop();
+  
+    // var email_type = 'sent-via-csv'
+    // console.log('body?', body)
+    // this.emailStore.emails.push({
+    //   emailIndex: i,
+    //   email: email, 
+    //   subject: subject,
+    //   body: body,
+    //   email_type: email_type
+    // })
+
+    // first put it up there, then grab it?
+
+    var id = "hidden-div"
+    var el = document.getElementById(id);
+    el.innerHTML = html;
+    var el2 = document.getElementById(id);
+    var text = el2.innerText;
+    var email = text.match(/app-email(.*?)app-email/)[0].replace(/app-email/g, '').trim();
+    var subject = text.match(/app-subject(.*?)app-subject/)[0].replace(/app-subject/g, '').trim();
+    var body = text.split("app-body").pop();
+    var e = document.getElementById("select-" + i);
+    var email_type = 'sent-via-csv'
+
 
     this.emailStore.emails.push({
       emailIndex: i,
@@ -217,8 +266,35 @@ export class EmailComponent implements OnInit {
       secondArgument.push(new Property(key.toString()));
     }
     var html = this.templatesService.convertTemplate(this.template.body, secondArgument, thirdArgument);
+    console.log('inject html????', html)
     var html = html.replace(/null/g, "**please enter a value**")
     el.innerHTML = html;
+  }
+
+  localInject(obj) {
+    var el = document.getElementById('hidden-div');
+    var nullThings = 0
+    var key, keys = Object.keys(obj);
+    var n = keys.length;
+    var thirdArgument={}
+    while (n--) {
+      key = keys[n];
+      if (obj[key] == "" || obj[key] == " " || obj[key] == undefined || obj[key] == null) {
+        nullThings++;
+      }
+      thirdArgument[key.toLowerCase()] = obj[key];
+    }
+    if (nullThings < 1) {
+      var secondArgument = [];
+      for(var localkey in thirdArgument ) {
+        secondArgument.push(new Property(localkey.toString()));
+      }
+      var html = this.templatesService.convertTemplate(this.template.body, secondArgument, thirdArgument);
+      console.log('inject html????', html)
+      var html = html.replace(/null/g, "**please enter a value**")
+      this.localEmails.push(html);
+      console.log('local emails....', this.localEmails);
+    }
   }
 
   onDeleteEmail(index) {
@@ -242,6 +318,68 @@ export class EmailComponent implements OnInit {
     el2.style.backgroundColor = 'lightgoldenrodyellow';
     el2.style.color = 'black';
     el2.innerHTML = 'Email Count History: 0'
+  }
+
+  uploadCSV() {
+    document.getElementById('file-picker').click();
+  }
+
+  arraysEqual(_arr1, _arr2) {
+    if (!Array.isArray(_arr1) || ! Array.isArray(_arr2) || _arr1.length !== _arr2.length) {
+      return false;
+    }
+    var arr1 = _arr1.concat().sort();
+    var arr2 = _arr2.concat().sort();
+    for (var i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i])
+          return false;
+      }
+    return true;
+  }
+
+  csvComplete(result) {
+    let exitEarly = false;
+    const headers = Object.keys(result['data'][0]).map(x => x.toLowerCase());
+    const properties = this.template.properties.map(x => x.name);
+    // there is not an entry for headers for every entry of properties
+    console.log('headers', headers)
+    console.log('properties', properties)
+    properties.forEach(x => {
+      if (headers.indexOf(x) < 0) {
+        exitEarly = true; 
+      }
+    })
+    if (exitEarly) {
+      alert(`Mismatched headers and properties! CSV has [${headers.join(', ')}], template needs [${properties.join(', ')}]`)
+    } else {
+      result['data'].forEach(obj => {
+        this.localInject(obj)
+      })
+      this.localEmails.forEach((text, i) => {
+        this.localAddToQueue(text, i)
+      })
+      if(confirm("Send " + this.emailStore.emails.length + ' emails?')) {
+        this.sendEmails()
+      }
+    }
+  }
+
+  readerOnload(e) {
+    let csv: string = <any>this.reader.result;
+    this.papa.parse(csv, {
+      header: true,
+      complete: this.csvComplete.bind(this)
+    })  
+  }
+
+  changeListener(files) {
+    if(files && files.length > 0) {
+      let file : File = files.item(0); 
+        let reader: FileReader = new FileReader();
+        reader.readAsText(file);
+        this.reader = reader;
+        reader.onload = this.readerOnload.bind(this)
+     }
   }
 }
 

@@ -16,6 +16,12 @@
 			{{ emailStore.emails.length }} of {{ formData().controls.length }}
 		</div>
 	<button 
+		type="file"
+		(click)="uploadCSV()"
+		class="btn btn-primary"
+		[disabled]="emailStore.emails.length > 0">Upload CSV</button> 
+		<input type="file" id="file-picker" class="upload" style="display: none;" (change)="changeListener($event.target.files)">
+	<button 
 		#hiddenButton
 		id="hiddenButton"
 		(click)="sendEmails()"
@@ -48,9 +54,10 @@
 							</div>
 							<br>
 							<select class="form-control" [id]="'select-' + i">
+									<option value="supervisor">Supervisor</option>
+
 									<option value="ad">Ad Agency</option>
 									<option value="film-studio">Film Studio</option>
-								<option value="supervisor">Supervisor</option>
 								<option value="trailer-house">Trailer House</option>
 								<option value="brand">brand</option>
 								
@@ -81,6 +88,10 @@
 		</div>
 	</div>
 </form>
+
+<div id="hidden-div">
+	
+</div>
 
 
 

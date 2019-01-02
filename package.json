@@ -24,11 +24,13 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "angular5-csv": "^0.2.10",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
     "ng2-toastr": "^4.1.2",
+    "ngx-papaparse": "^1.2.5",
     "typescript": "~2.3.3",
     "zone.js": "^0.8.4"
   },

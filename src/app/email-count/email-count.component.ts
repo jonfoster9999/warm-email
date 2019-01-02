@@ -2,6 +2,8 @@ import * as constants from './../http.constants';
 import { UsersService } from './../services/users.service';
 import { Http } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+
 
 @Component({
   selector: 'app-email-count',
@@ -10,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmailCountComponent implements OnInit {
   emailArr = [];
+  selectedEmails = [];
   constructor(private http: Http, private usersService: UsersService) { }
 
   ngOnInit() {
@@ -93,6 +96,14 @@ export class EmailCountComponent implements OnInit {
 
   markRow(topIndex, i) {
     this.emailArr[topIndex].collection[i].checked = !this.emailArr[topIndex].collection[i].checked;
+    const emailObj = { email: this.emailArr[topIndex].collection[i].email }
+    if (this.emailArr[topIndex].collection[i].checked) {
+      this.selectedEmails.push(emailObj);
+    } else {
+      const i = this.selectedEmails.indexOf(emailObj);
+      this.selectedEmails.splice(i, 1);
+    }
+    console.log(this.selectedEmails);
   }
 
   // markAdRow(i) {
@@ -102,6 +113,17 @@ export class EmailCountComponent implements OnInit {
   clearChecks(index) {
     this.emailArr[index].collection.forEach(count => {
       count.checked = false;
+    })
+  }
+
+  exportCSV() {
+    var fileName = window.prompt('Please enter file name...');
+    var options = { 
+      headers: ["Email"]
+    };
+    new Angular5Csv(this.selectedEmails, fileName, options);
+    this.emailArr.forEach((el, i) => {
+      this.clearChecks(i);
     })
   }
 }
